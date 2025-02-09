@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="tv" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 176 172" enable-background="new 0 0 176 172" xml:space="preserve">
+<g>
+	<path fill="#89714D" d="M172,108H88H4c-2.2109,0-4,1.7912-4,4v40v4v16h8v-12h80h80v12h8v-16v-4v-40
+		C176,109.7912,174.2107,108,172,108z M8,116h76v36H8V116z M92,152v-36h76v36H92z"/>
+	<path fill="#BC9A67" d="M84,116H8v36h76V116z M56,140H32v-8h24V140z"/>
+	<path fill="#BC9A67" d="M92,116v36h76v-36H92z M144,140h-24v-8h24V140z"/>
+	<rect x="120" y="132" fill="#89714D" width="24" height="8"/>
+	<rect x="32" y="132" fill="#89714D" width="24" height="8"/>
+	<path fill="#456782" d="M84,96H68v8h40v-8H92v-8h68V0H16v88h68V96z M24,8h128v72H92h-8H24V8z"/>
+	<polygon fill="#B976DD" points="92,80 152,80 152,8 24,8 24,80 84,80 	"/>
+</g>
+</svg>

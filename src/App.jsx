@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import HomePage from "./components/HomePage";
+import Favorites from "./components/Favorites";
+import Genres from "./components/Genres";
+import MovieDetails from "./components/MovieDetails";
+import SignIn from "./components/SignIn";
+import TopRated from "./components/TopRated";
+import "./App.scss";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/favorites">Favorites</Link>
+        <Link to="/top-rated">Top Rated</Link>
+        <Link to="/genres">Genres (aka. Magic wheel)</Link>
+        <Link to="/sign-in">Sign in</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<HomePage></HomePage>}></Route>
+        <Route path="/favorites" element={<Favorites></Favorites>}></Route>
+        <Route path="/top-rated" element={<TopRated></TopRated>}></Route>
+        <Route path="/genres" element={<Genres></Genres>}></Route>
+        <Route path="/sign-in" element={<SignIn></SignIn>}></Route>
+        <Route path="/movie/:id" element={<MovieDetails></MovieDetails>}></Route>
+        <Route path="*" element={<HomePage></HomePage>}></Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
