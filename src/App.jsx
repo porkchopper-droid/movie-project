@@ -10,7 +10,7 @@ import "./App.scss";
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/movie-project">
       <nav>
         <Link to="/">Home</Link>
         <Link to="/favorites">Favorites</Link>
