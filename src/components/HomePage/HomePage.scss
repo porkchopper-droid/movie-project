@@ -1,0 +1,19 @@
+
+.ulContainer {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 20px;
+padding: 0;
+}
+
+li {
+list-style-type: none;
+
+}
+
+.liContainer{
+    border: 1px solid red;
+    width: 200px;
+    height: 300px;
+}
