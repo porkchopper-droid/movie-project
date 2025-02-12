@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
 
 export default function HomePage() {
-  const [movies, setMovies] = useState([]); // initial state variable
+  const { movies, handleSearch } = useContext(SearchContext); // using context...
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
 
   function updateTime() { // used to update timeOfDay based on hours
@@ -19,20 +20,13 @@ export default function HomePage() {
     setTimeofDay(timeLabel);
   }
 
-  useEffect(() => { // look into how to update it every minute or so
+  useEffect(() => {
     updateTime();
   }, []);
 
-  const myAPIkey = "4a822498";
-
   useEffect(() => {
     if (!timeOfDay) return;
-    fetch(`https://www.omdbapi.com/?apikey=${myAPIkey}&s=${timeOfDay}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setMovies(data.Search || []);
-      })
-      .catch((error) => console.error("Error fetching movies:", error));
+    handleSearch(timeOfDay);
   }, [timeOfDay]);
 
   return (
