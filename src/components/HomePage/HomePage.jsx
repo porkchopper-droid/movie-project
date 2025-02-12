@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { SearchContext } from "../../contexts/SearchContext";
+import React, { useState, useContext, useEffect } from "react";
+import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
 
 export default function HomePage() {
