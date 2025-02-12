@@ -37,6 +37,7 @@ export default function HomePage() {
             <h4>{movie.Title}</h4>
             <img
               src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
+              src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
               alt={movie.Title + " Poster"}
               style={{ width: "80%", objectFit: "cover", padding: "10px 0" }}
             />
