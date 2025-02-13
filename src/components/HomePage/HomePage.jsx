@@ -45,6 +45,9 @@ export default function HomePage() {
 
   return (
     <div>
+      {favoritesMovies.length>0&&<span>{favoritesMovies.length}</span>}
+      
+
       <ul className="moviesContainer">
         {movies.map((movie) => (
           <div className="movieContainer" key={movie.imdbID} onClick={()=>navigate(`/movie/${movie.imdbID}`)} style={{cursor: "pointer"}}>
