@@ -16,6 +16,7 @@ function App() {
       <BrowserRouter basename="/movie-project">
         <nav>
           <Link to="/">Home</Link>
+          
           <Link to="/favorites">Favorites</Link>
           <Link to="/top-rated">Top Rated</Link>
           <Link to="/genres">Genres (aka. Magic wheel)</Link>

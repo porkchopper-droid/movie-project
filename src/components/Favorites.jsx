@@ -6,7 +6,9 @@ export default function Favorites() {
 
   //Filtirig movies and remove  it from favorite by clicking on the button
   const removeFromFavorite = (movie) => {
-    const filtringMovies = favoritesMovies.filter((m) => m.imdbID !== movie.imdbID);
+    const filtringMovies = favoritesMovies.filter(
+      (m) => m.imdbID !== movie.imdbID
+    );
     setFavoritesMovies(filtringMovies);
   };
 
@@ -15,7 +17,7 @@ export default function Favorites() {
       <h1>{favoritesMovies.length === 0 && " No Favorite movies available"}</h1>
       <ul className="moviesContainer">
         {favoritesMovies.map((movie) => (
-          <div className="movieContainer" key={movie.imdbID}>
+          <div className="movieContainer" key={movie.Title}>
             <h4>{movie.Title}</h4>
             <img
               src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
