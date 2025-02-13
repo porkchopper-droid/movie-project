@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
-
 export default function HomePage() {
-  const { movies, handleSearch } = useContext(SearchContext); // using context...
+  const { favoritesMovies, setFavoritesMovies, movies, handleSearch } =
+    useContext(SearchContext); // using context...
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
 
-  function updateTime() { // used to update timeOfDay based on hours
+  function updateTime() {
+    // used to update timeOfDay based on hours
     const now = new Date();
     const hour = now.getHours();
 
@@ -29,6 +30,17 @@ export default function HomePage() {
     handleSearch(timeOfDay);
   }, [timeOfDay]);
 
+  //Adding the favorite Movies to The Favorite Component
+
+  const addingToFavorite = (movie) => {
+    if (!favoritesMovies.includes(movie)) {
+      setFavoritesMovies((prev) => [...prev, movie]);
+      console.log(favoritesMovies);
+    } else {
+      console.log("movie already exist");
+    }
+  };
+
   return (
     <div>
       <ul className="moviesContainer">
@@ -43,6 +55,9 @@ export default function HomePage() {
             <p>Year: {movie.Year}</p>
             <p>Genre: {movie.Genre || "N/A"}</p>
             <p>Rating: {movie.imdbRating || "N/A"}</p>
+            <button onClick={() => addingToFavorite(movie)}>
+              Add to favorite
+            </button>
           </div>
         ))}
       </ul>
