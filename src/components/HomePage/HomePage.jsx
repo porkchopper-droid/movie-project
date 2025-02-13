@@ -1,10 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
 
 export default function HomePage() {
   const { movies, handleSearch } = useContext(SearchContext); // using context...
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
+  const navigate = useNavigate()
 
   function updateTime() { // used to update timeOfDay based on hours
     const now = new Date();
@@ -33,7 +35,7 @@ export default function HomePage() {
     <div>
       <ul className="moviesContainer">
         {movies.map((movie) => (
-          <div className="movieContainer" key={movie.imdbID}>
+          <div className="movieContainer" key={movie.imdbID} onClick={()=>navigate(`/movie/${movie.imdbID}`)} style={{cursor: "pointer"}}>
             <h4>{movie.Title}</h4>
             <img
               src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}

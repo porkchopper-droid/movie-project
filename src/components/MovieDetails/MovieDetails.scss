@@ -1,0 +1,41 @@
+.detailedMovie {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+
+  .moviePoster img {
+    width: 300px;
+    height: auto;
+    box-shadow: 0x 0px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .movieDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+    .movieDescriptionList {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #ff9800;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./components/HomePage/HomePage";
 import Favorites from "./components/Favorites";
 import Genres from "./components/Genres";
-import MovieDetails from "./components/MovieDetails";
+import MovieDetails from "./components/MovieDetails/MovieDetails";
 import SignIn from "./components/SignIn";
 import TopRated from "./components/TopRated";
 import SearchPage from "./components/SearchPage";
