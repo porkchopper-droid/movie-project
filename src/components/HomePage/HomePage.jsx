@@ -6,7 +6,7 @@ export default function HomePage() {
   const { favoritesMovies, setFavoritesMovies, movies, handleSearch } =
     useContext(SearchContext); // using context...
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function updateTime() {
     // used to update timeOfDay based on hours
@@ -50,13 +50,21 @@ export default function HomePage() {
 
       <ul className="moviesContainer">
         {movies.map((movie) => (
-          <div className="movieContainer" key={movie.imdbID} onClick={()=>navigate(`/movie/${movie.imdbID}`)} style={{cursor: "pointer"}}>
+          <div className="movieContainer" key={movie.imdbID}>
             <h4>{movie.Title}</h4>
-            <img
-              src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
-              alt={movie.Title + " Poster"}
-              style={{ width: "80%", objectFit: "cover", padding: "10px 0" }}
-            />
+            <div className="expand">
+              <img
+                src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
+                alt={movie.Title + " Poster"}
+                style={{
+                  width: "80%",
+                  objectFit: "cover",
+                  padding: "10px 0",
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate(`/movie/${movie.imdbID}`)}
+              />
+            </div>
             <p>Year: {movie.Year}</p>
             <p>Genre: {movie.Genre || "N/A"}</p>
             <p>Rating: {movie.imdbRating || "N/A"}</p>
