@@ -1,4 +1,3 @@
-
 import { genreMovies } from "../../data/genreMovies";
 import "./Genres.scss"
 
@@ -6,7 +5,9 @@ export default function Genres() {
   const randomMovies = Object.keys(genreMovies).map((genre) => {
     const movies = genreMovies[genre];
     const randomMovie = movies[Math.floor(Math.random() * movies.length)];
+
     return { genre, movieTitle: randomMovie };
+
   });
 
   return (
