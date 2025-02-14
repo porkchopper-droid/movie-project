@@ -1,0 +1,30 @@
+.moviesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  
+    .movieContainer {
+      border: 1px solid red;
+      width: 200px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      
+  
+      .expand img {
+        transition: 1s ease;
+      }
+  
+      .expand img:hover {
+        -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        transform: scale(1.05);
+        transition: 0.3s ease;
+      }
+    }
+  }
+  

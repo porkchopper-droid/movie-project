@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
+
+
 export default function HomePage() {
   const { favoritesMovies, setFavoritesMovies, movies, handleSearch } =
     useContext(SearchContext); // using context...
