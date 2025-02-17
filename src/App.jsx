@@ -26,7 +26,7 @@ function App() {
            </li>
      
         <Link to="/top-rated">Top Rated</Link>
-        <Link to="/genres">Genres (aka. Magic wheel)</Link>
+        <Link to="/genres">Genres</Link>
         <input
           onChange={(e) => {
             setSearchQuery(e.target.value);
