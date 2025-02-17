@@ -4,8 +4,9 @@
     justify-content: center;
     gap: 20px;
     padding: 20px;
+    
   
-    .movieContainer {
+    .movieContainer2 {
       border: 1px solid red;
       width: 200px;
       height: 400px;
@@ -13,6 +14,7 @@
       flex-direction: column;
       align-items: center;
       padding: 10px;
+      justify-content: space-around;
       
   
       .expand img {
