@@ -53,12 +53,11 @@ export default function SearchContextProvider(props) {
         handleSearch,
         movie,
         setMovie,
-        handleSingleSearch
+        handleSingleSearch,
 
 
         setMovies,
-        searchMovies,
-        setSearchMovies,
+        
         addingToFavorite
 
       }}
