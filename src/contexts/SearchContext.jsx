@@ -1,4 +1,8 @@
+
 import  { createContext, useState } from "react";
+
+import React, { createContext, useEffect, useState } from "react";
+
 
 export const SearchContext = createContext();
 
@@ -8,6 +12,9 @@ export default function SearchContextProvider(props) {
   const [favoritesMovies, setFavoritesMovies] = useState([]);
   const [searchMovies,setSearchMovies]=useState([])
   
+
+
+
   function handleSearch(query) {
     const myAPIkey = "4a822498";
     fetch(`https://www.omdbapi.com/?apikey=${myAPIkey}&s=${query}`)
@@ -37,10 +44,13 @@ export default function SearchContextProvider(props) {
         setSearchQuery,
         movies,
         handleSearch,
+
         setMovies,
         searchMovies,
         setSearchMovies,
         addingToFavorite
+
+
       }}
     >
       {props.children}
