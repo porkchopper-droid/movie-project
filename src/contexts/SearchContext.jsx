@@ -1,31 +1,35 @@
-
-
 import { createContext, useState } from "react";
-
 
 export const SearchContext = createContext();
 
 export default function SearchContextProvider(props) {
-
-
   const [movies, setMovies] = useState([]); // for 10 movies
   const [movie, setMovie] = useState(null); // for a single movie
   const [searchQuery, setSearchQuery] = useState(""); // for search bar
   const [favoritesMovies, setFavoritesMovies] = useState([]); // for favorite movies
-  
+  const [searchComponentData, SetSearchComponentData] = useState([]); //for Search Component
   const myAPIkey = "4a822498";
 
-  function handleSearch(query) { // for 10 per query
-
+  function handleSearch(query) {
     fetch(`https://www.omdbapi.com/?apikey=${myAPIkey}&s=${query}`)
       .then((response) => response.json())
-      .then((data) => setMovies(data.Search || []))
+      .then((data) => {
+        setMovies(data.Search || []); // Set the movies after fetching
+      })
       .catch((error) => console.error("Error fetching movies:", error));
   }
-   
 
+  //Fetching Data For Search Component
+  function handleSearchComponent(query) {
+    fetch(`https://www.omdbapi.com/?apikey=${myAPIkey}&s=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+        SetSearchComponentData(data.Search || []); // Set the movies after fetching
+      })
+      .catch((error) => console.error("Error fetching movies:", error));
+  }
 
-  
+  //Adding Favorite movies To the favorite Component
   const addingToFavorite = (movie) => {
     if (!favoritesMovies.includes(movie)) {
       setFavoritesMovies((prev) => [...prev, movie]);
@@ -35,7 +39,8 @@ export default function SearchContextProvider(props) {
     }
   };
 
-  function handleSingleSearch(id) { // for 1 movie per query
+  function handleSingleSearch(id) {
+    // for 1 movie per query
     fetch(`https://www.omdbapi.com/?apikey=${myAPIkey}&i=${id}`)
       .then((result) => result.json())
       .then((data) => setMovie(data))
@@ -55,11 +60,11 @@ export default function SearchContextProvider(props) {
         setMovie,
         handleSingleSearch,
 
-
         setMovies,
-        
-        addingToFavorite
 
+        addingToFavorite,
+        searchComponentData,
+        handleSearchComponent,
       }}
     >
       {props.children}
