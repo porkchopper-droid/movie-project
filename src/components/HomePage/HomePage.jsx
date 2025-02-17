@@ -1,10 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import  { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
 export default function HomePage() {
-  const { favoritesMovies, setFavoritesMovies, movies, handleSearch } =
-    useContext(SearchContext); // using context...
+  const {
+    favoritesMovies,
+    setFavoritesMovies,
+    addingToFavorite,
+    movies,
+    handleSearch,
+  } = useContext(SearchContext); // using context...
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
   const navigate = useNavigate();
 
@@ -34,19 +39,23 @@ export default function HomePage() {
 
   //Adding the favorite Movies to The Favorite Component
 
-  const addingToFavorite = (movie) => {
-    if (!favoritesMovies.includes(movie)) {
-      setFavoritesMovies((prev) => [...prev, movie]);
-      console.log(favoritesMovies);
-    } else {
-      console.log("movie already exist");
-    }
-  };
+  // const addingToFavorite = (movie) => {
+  //   if (!favoritesMovies.includes(movie)) {
+  //     setFavoritesMovies((prev) => [...prev, movie]);
+  //     console.log(favoritesMovies);
+  //   } else {
+  //     console.log("movie already exist");
+  //   }
+  // };
 
   return (
     <div>
+
+      {favoritesMovies.length > 0 && <span>{favoritesMovies.length}</span>}
+
       {favoritesMovies.length>0&&<span>{favoritesMovies.length}</span>}
       
+
 
       <ul className="moviesContainer">
         {movies.map((movie) => (

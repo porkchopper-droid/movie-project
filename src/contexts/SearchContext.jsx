@@ -1,4 +1,8 @@
+
+import  { createContext, useState } from "react";
+
 import React, { createContext, useEffect, useState } from "react";
+
 
 export const SearchContext = createContext();
 
@@ -6,6 +10,10 @@ export default function SearchContextProvider(props) {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [favoritesMovies, setFavoritesMovies] = useState([]);
+  const [searchMovies,setSearchMovies]=useState([])
+  
+
+
 
   function handleSearch(query) {
     const myAPIkey = "4a822498";
@@ -14,6 +22,18 @@ export default function SearchContextProvider(props) {
       .then((data) => setMovies(data.Search || []))
       .catch((error) => console.error("Error fetching movies:", error));
   }
+   
+
+
+  
+  const addingToFavorite = (movie) => {
+    if (!favoritesMovies.includes(movie)) {
+      setFavoritesMovies((prev) => [...prev, movie]);
+      console.log(favoritesMovies);
+    } else {
+      console.log("movie already exist");
+    }
+  };
 
   return (
     <SearchContext.Provider
@@ -24,6 +44,13 @@ export default function SearchContextProvider(props) {
         setSearchQuery,
         movies,
         handleSearch,
+
+        setMovies,
+        searchMovies,
+        setSearchMovies,
+        addingToFavorite
+
+
       }}
     >
       {props.children}
