@@ -6,8 +6,7 @@ import "./HomePage.scss";
 
 export default function HomePage() {
   const {
-    favoritesMovies,
-    setFavoritesMovies,
+   
     addingToFavorite,
     movies,
     handleSearch,
@@ -39,21 +38,11 @@ export default function HomePage() {
     handleSearch(timeOfDay);
   }, [timeOfDay]);
 
-  //Adding the favorite Movies to The Favorite Component
 
-  // const addingToFavorite = (movie) => {
-  //   if (!favoritesMovies.includes(movie)) {
-  //     setFavoritesMovies((prev) => [...prev, movie]);
-  //     console.log(favoritesMovies);
-  //   } else {
-  //     console.log("movie already exist");
-  //   }
-  // };
 
   return (
     <div>
 
-      {favoritesMovies.length > 0 && <span className="favoriteNumber">{favoritesMovies.length}</span>}
 
       
 

@@ -1,21 +1,31 @@
-import {useContext} from 'react'
-import { SearchContext } from '../contexts/SearchContext';
+import { useContext, useEffect } from "react";
+import { SearchContext } from "../contexts/SearchContext";
+import { useNavigate } from "react-router-dom"; // to link to movie details
 
+export default function SearchPage() {
+  // Extracting values and functions from SearchContext
 
-export default function SearchPage({searchMovies}) {
-  console.log(searchMovies);
-  
+  const navigate = useNavigate();
 
-  const {addingToFavorite,favoritesMovies,setFavoritesMovies,} = useContext(SearchContext);
+  const { searchQuery,searchComponentData,handleSearchComponent,addingToFavorite} =
+    useContext(SearchContext);
+
+  // Fetch movies whenever searchQuery changes
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      handleSearchComponent(searchQuery); // Fetch movies based on search query
+    }
+  }, [searchQuery,handleSearchComponent]); // Dependency on searchQuery to re-fetch when it changes
 
   return (
     <div>
-    
-    {favoritesMovies.length > 0 && <span>{favoritesMovies.length}</span>}
+      <h2>Search Results for {searchQuery}</h2>
 
-    <ul className="moviesContainer">
-      {searchMovies.length >0?searchMovies.map((movie) => (
-        <div className="movieContainer" key={searchMovies.imdbID}>
+      {/* Render movies if any are found */}
+      {searchComponentData.length > 0 ? (
+      <ul className="moviesContainer">
+      {searchComponentData.map((movie) => (
+        <div className="movieContainer" key={movie.imdbID}>
           <h4>{movie.Title}</h4>
           <div className="expand">
             <img
@@ -37,9 +47,11 @@ export default function SearchPage({searchMovies}) {
             Add to favorite
           </button>
         </div>
-      ))
-      :<h1> Sorry There is no Movies in This Name  </h1>}
+      ))}
     </ul>
-  </div>
-  )
+      ) : (
+        <p>No movies found.</p> // Show message if no movies found
+      )}
+    </div>
+  );
 }
