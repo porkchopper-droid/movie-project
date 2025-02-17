@@ -4,12 +4,13 @@ import Favorites from "./components/Favorites";
 import Genres from "./components/Genres/Genres";
 import GenreMovies from "./components/GenreMovies";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
-import SignIn from "./components/SignIn";
+
 import TopRated from "./components/TopRated";
 import SearchPage from "./components/SearchPage";
 import "./App.scss";
 import { useContext, useState } from "react";
 import { SearchContext } from "./contexts/SearchContext";
+import LoginSignup from "./components/LoginSignup/LoginSignup";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
@@ -32,6 +33,7 @@ function App() {
 
   return (
 
+    
     <BrowserRouter basename="/movie-project">
       <nav>
         <Link to="/">Home</Link>
@@ -63,7 +65,7 @@ function App() {
         <Route path="/top-rated" element={<TopRated></TopRated>}></Route>
         <Route path="/genres" element={<Genres></Genres>}></Route>
         <Route path="/genres/:genre" element={<GenreMovies />} />
-        <Route path="/sign-in" element={<SignIn></SignIn>}></Route>
+        <Route path="/sign-in" element={<LoginSignup></LoginSignup>}></Route>
         <Route
           path="/movie/:id"
           element={<MovieDetails></MovieDetails>}
