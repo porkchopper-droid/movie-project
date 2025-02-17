@@ -53,7 +53,7 @@ export default function HomePage() {
   return (
     <div>
 
-      {favoritesMovies.length > 0 && <span>{favoritesMovies.length}</span>}
+      {favoritesMovies.length > 0 && <span className="favoriteNumber">{favoritesMovies.length}</span>}
 
       
 
