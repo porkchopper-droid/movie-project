@@ -1,8 +1,12 @@
-import React, { createContext, useEffect, useState } from "react";
+
+
+import { createContext, useState } from "react";
+
 
 export const SearchContext = createContext();
 
 export default function SearchContextProvider(props) {
+
 
   const [movies, setMovies] = useState([]); // for 10 movies
   const [movie, setMovie] = useState(null); // for a single movie
@@ -18,6 +22,18 @@ export default function SearchContextProvider(props) {
       .then((data) => setMovies(data.Search || []))
       .catch((error) => console.error("Error fetching movies:", error));
   }
+   
+
+
+  
+  const addingToFavorite = (movie) => {
+    if (!favoritesMovies.includes(movie)) {
+      setFavoritesMovies((prev) => [...prev, movie]);
+      console.log(favoritesMovies);
+    } else {
+      console.log("movie already exist");
+    }
+  };
 
   function handleSingleSearch(id) { // for 1 movie per query
     fetch(`https://www.omdbapi.com/?apikey=${myAPIkey}&i=${id}`)
@@ -38,6 +54,12 @@ export default function SearchContextProvider(props) {
         movie,
         setMovie,
         handleSingleSearch
+
+
+        setMovies,
+        searchMovies,
+        setSearchMovies,
+        addingToFavorite
 
       }}
     >
