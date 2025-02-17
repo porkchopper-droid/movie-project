@@ -4,56 +4,39 @@ import Favorites from "./components/Favorites";
 import Genres from "./components/Genres/Genres";
 import GenreMovies from "./components/GenreMovies";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
-import SignIn from "./components/SignIn";
+
 import TopRated from "./components/TopRated";
 import SearchPage from "./components/SearchPage";
 import "./App.scss";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SearchContext } from "./contexts/SearchContext";
+import LoginSignup from "./components/LoginSignup/LoginSignup";
 
 function App() {
-  const [inputValue, setInputValue] = useState("");
-
-  const { movies,searchMovies,setSearchMovies } = useContext(SearchContext);
-
-  const handleSearchBtn = (e) => {
-    e.preventDefault();
-
-    const res = movies.filter((movie) => {
-      if (movie.Title.toLowerCase().includes(inputValue.toLowerCase())) {
-        return movie;
-      }
-    });
-
-     setSearchMovies(res);
-  };
-
-
+  const { setSearchQuery,favoritesMovies} = useContext(SearchContext);
 
   return (
 
     <BrowserRouter basename="/movie-project">
       <nav>
         <Link to="/">Home</Link>
-
-        <Link to="/favorites">Favorites</Link>
+         <li className="favoriteElement" >   
+          <Link to="/favorites">Favorites</Link>
+           {favoritesMovies.length>0&&<span className="favorite-span">{favoritesMovies.length}</span>}
+           </li>
+     
         <Link to="/top-rated">Top Rated</Link>
         <Link to="/genres">Genres</Link>
         <input
           onChange={(e) => {
-            setInputValue(e.target.value);
+            setSearchQuery(e.target.value);
           }}
           type="text"
           placeholder="search for movies"
         ></input>
-        <button
-          onClick={(e) => {
-            handleSearchBtn(e);
-            
-          }}
-        >
-          <Link to="/search-page"> Search</Link>
-        </button>
+
+        <Link  to="/search-page"> Search</Link>
+
         <Link to="/sign-in">Sign in</Link>
       </nav>
 
@@ -63,18 +46,15 @@ function App() {
         <Route path="/top-rated" element={<TopRated></TopRated>}></Route>
         <Route path="/genres" element={<Genres></Genres>}></Route>
         <Route path="/genres/:genre" element={<GenreMovies />} />
-        <Route path="/sign-in" element={<SignIn></SignIn>}></Route>
+        <Route path="/sign-in" element={<LoginSignup></LoginSignup>}></Route>
         <Route
           path="/movie/:id"
           element={<MovieDetails></MovieDetails>}
         ></Route>
-        <Route path="/search-page" element={<SearchPage searchMovies={searchMovies}/>}></Route>
+        <Route path="/search-page" element={<SearchPage />}></Route>
         <Route path="*" element={<HomePage></HomePage>}></Route>
       </Routes>
     </BrowserRouter>
-
-    
-
   );
 }
 

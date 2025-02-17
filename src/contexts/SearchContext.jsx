@@ -1,4 +1,6 @@
+
 import { createContext, useState, useEffect } from "react";
+
 
 export const SearchContext = createContext();
 
@@ -9,9 +11,8 @@ export default function SearchContextProvider(props) {
   const [favoritesMovies, setFavoritesMovies] = useState([]); // for favorite movies
   const [genres, setGenres] = useState([])
   const [randomMovies, setRandomMovies] = useState([]);
+  const [searchComponentData, SetSearchComponentData] = useState([]); //for Search Component
   
-
-
   const OMDB_APIkey = "4a822498";
   const TMDB_APIkey = "1142406a61399eb425ef4054c048517b"
 
@@ -19,9 +20,12 @@ export default function SearchContextProvider(props) {
 
     fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}`) // for 10 per query
       .then((response) => response.json())
-      .then((data) => setMovies(data.Search || []))
+      .then((data) => {
+        setMovies(data.Search || []); // Set the movies after fetching
+      })
       .catch((error) => console.error("Error fetching movies:", error));
   }
+
 
   function handleSingleSearch(id) { // for 1 movie per query
     fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&i=${id}`)
@@ -70,6 +74,20 @@ export default function SearchContextProvider(props) {
   }, [genres]);
 
   const addingToFavorite = (movie) => { // adding to favorites
+    
+  //Fetching Data For Search Component
+  function handleSearchComponent(query) {
+    fetch(`https://www.omdbapi.com/?apikey=${myAPIkey}&s=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+        SetSearchComponentData(data.Search || []); // Set the movies after fetching
+      })
+      .catch((error) => console.error("Error fetching movies:", error));
+  }
+
+  //Adding Favorite movies To the favorite Component
+  const addingToFavorite = (movie) => {
+
     if (!favoritesMovies.includes(movie)) {
       setFavoritesMovies((prev) => [...prev, movie]);
       console.log(favoritesMovies);
@@ -94,6 +112,10 @@ export default function SearchContextProvider(props) {
         addingToFavorite,
         genres,
         randomMovies,
+        setMovies,
+        addingToFavorite,
+        searchComponentData,
+        handleSearchComponent,
       }}
     >
       {props.children}

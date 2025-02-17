@@ -43,3 +43,22 @@ nav {
     background-color: white;
   }
 }
+
+.favoriteElement{
+
+  list-style: none;
+  display: flex;
+gap: 0.3rem;
+
+ 
+  .favorite-span{background-color: rgb(240, 54, 8);
+         height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+         
+    ;}
+
+}
