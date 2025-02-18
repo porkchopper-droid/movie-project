@@ -5,10 +5,11 @@ import "./Genres.scss"
 
 export default function Genres() {
   const { randomMovies } = useContext(SearchContext);
+  console.log(randomMovies)
   const navigate = useNavigate();
 
-  function handleMovieClick(genreName) {
-    navigate(`/genres/${genreName}`); // Navigate to GenreMovies.js
+  function handleMovieClick(genre) {
+    navigate(`/genres/${genre}`); // Navigate to GenreMovies.js
   }
 
   return (
@@ -31,8 +32,8 @@ export default function Genres() {
                 cursor: "pointer",
               }}
             />
-            {/* <h3>{movie.title}</h3> */}
-            <p>{genre.toUpperCase()}</p>
+            {/* <h3>{movie.title}</h3> << NO NEED! FOR GENERAL PURPOSE ONLY!*/}
+            <h4>{genre.toUpperCase()}</h4>
           </div>
         ))}
       </div>
