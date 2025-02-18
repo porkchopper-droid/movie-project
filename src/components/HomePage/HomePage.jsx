@@ -44,6 +44,7 @@ export default function HomePage() {
                 alt={movie.Title + " Poster"}
                 style={{
                   width: "80%",
+                  height: "230px",
                   objectFit: "cover",
                   padding: "10px 0",
                   cursor: "pointer",
