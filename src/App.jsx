@@ -19,25 +19,26 @@ function App() {
 
     <BrowserRouter basename="/movie-project">
       <nav>
-        <Link to="/">Home</Link>
+        <Link to="/" className="home-link">Home</Link>
          <li className="favoriteElement" >   
-          <Link to="/favorites">Favorites</Link>
+          <Link to="/favorites" className="fav-link">Favorites</Link>
            {favoritesMovies.length>0&&<span className="favorite-span">{favoritesMovies.length}</span>}
            </li>
      
-        <Link to="/top-rated">Top Rated</Link>
-        <Link to="/genres">Genres</Link>
+        <Link to="/top-rated" className="top-rated-link">Top Rated</Link>
+        <Link to="/genres" className="genres-link">Genres</Link>
         <input
+          className="search-input"
           onChange={(e) => {
             setSearchQuery(e.target.value);
           }}
           type="text"
-          placeholder="search for movies"
+          placeholder="search for movies ..."
         ></input>
 
-        <Link  to="/search-page"> Search</Link>
+        <Link  to="/search-page" className="search-link"> Search</Link>
 
-        <Link to="/sign-in">Sign in</Link>
+        <Link to="/sign-in" className="sign-in-link">Sign in</Link>
       </nav>
 
       <Routes>
