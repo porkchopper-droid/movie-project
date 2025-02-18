@@ -27,7 +27,7 @@ export default function Favorites() {
             <p>Year: {movie.Year}</p>
             <p>Genre: {movie.Genre || "N/A"}</p>
             <p>Rating: {movie.imdbRating || "N/A"}</p>
-            <button onClick={() => removeFromFavorite(movie)}>
+            <button className="remove-favs" onClick={() => removeFromFavorite(movie)}>
               Remove from favorite
             </button>
           </div>

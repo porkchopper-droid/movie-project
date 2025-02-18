@@ -1,32 +1,42 @@
 .moviesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 70vw;
+
+  .movieContainer2 {
+    width: 200px;
+    height: 400px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    
-  
-    .movieContainer2 {
-      border: 1px solid red;
-      width: 200px;
-      height: 400px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-      justify-content: space-around;
-      
-  
-      .expand img {
-        transition: 1s ease;
-      }
-  
-      .expand img:hover {
-        -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-        transform: scale(1.05);
-        transition: 0.3s ease;
-      }
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-evenly;
+    background: #a3b18a;
+    border-radius: 0.3rem;
+
+    img {
+      transition: 0.5s ease;
+    }
+
+    &:hover img {
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+      transition: 0.1s ease;
     }
   }
-  
+}
+
+.genres-title {
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 2rem;
+  color: #588157;
+}
+
+.genres-name {
+  font-weight: 900;
+}

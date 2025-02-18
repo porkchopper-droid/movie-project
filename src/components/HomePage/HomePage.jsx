@@ -1,16 +1,10 @@
-import  { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
 
-
 export default function HomePage() {
-  const {
-   
-    addingToFavorite,
-    movies,
-    handleSearch,
-  } = useContext(SearchContext); // using context...
+  const { addingToFavorite, movies, handleSearch } = useContext(SearchContext); // using context...
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
   const navigate = useNavigate();
 
@@ -38,15 +32,8 @@ export default function HomePage() {
     handleSearch(timeOfDay);
   }, [timeOfDay]);
 
-
-
   return (
     <div>
-
-
-      
-
-
       <ul className="moviesContainer">
         {movies.map((movie) => (
           <div className="movieContainer" key={movie.imdbID}>
@@ -67,8 +54,11 @@ export default function HomePage() {
             <p>Year: {movie.Year}</p>
             <p>Genre: {movie.Genre || "N/A"}</p>
             <p>Rating: {movie.imdbRating || "N/A"}</p>
-            <button onClick={() => addingToFavorite(movie)}>
-              Add to favorite
+            <button
+              className="favorites-button"
+              onClick={() => addingToFavorite(movie)}
+            >
+              Add to favorites
             </button>
           </div>
         ))}
