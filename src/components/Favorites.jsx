@@ -17,7 +17,7 @@ export default function Favorites() {
       <h1>{favoritesMovies.length === 0 && " No Favorite movies available"}</h1>
       <ul className="moviesContainer">
         {favoritesMovies.map((movie) => (
-          <div className="movieContainer" key={movie.Title}>
+          <div className="movieContainer" key={movie.imdbID}>
             <h4>{movie.Title}</h4>
             <img
               src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
