@@ -4,7 +4,14 @@ import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
 
 export default function HomePage() {
-  const { addingToFavorite, movies, handleSearch } = useContext(SearchContext); // using context...
+
+  const {
+    movies,
+    handleSearch,
+    addingToFavorite,
+    fetchFullMovieDetails
+  } = useContext(SearchContext); // using context's constants...
+  
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
   const navigate = useNavigate();
 
@@ -23,14 +30,20 @@ export default function HomePage() {
     setTimeofDay(timeLabel);
   }
 
-  useEffect(() => {
+  useEffect(() => { // updating the time of the day
     updateTime();
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { // getting the movies depending on the time of the day
     if (!timeOfDay) return;
     handleSearch(timeOfDay);
   }, [timeOfDay]);
+
+  useEffect(()=>{ // updating the info of each movie
+    if (!movies.length) return;
+    fetchFullMovieDetails(movies); 
+  }, [movies])
+
 
   return (
     <div>

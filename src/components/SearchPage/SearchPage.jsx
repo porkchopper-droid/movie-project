@@ -4,19 +4,23 @@ import { useNavigate } from "react-router-dom"; // to link to movie details
 import "../SearchPage/search.scss";
 
 export default function SearchPage() {
+  
   // Extracting values and functions from SearchContext
-
   const navigate = useNavigate();
 
-  const { searchQuery,searchComponentData,handleSearchComponent,addingToFavorite} =
-    useContext(SearchContext);
+  const {
+    searchQuery,
+    searchComponentData,
+    handleSearchComponent,
+    addingToFavorite,
+  } = useContext(SearchContext);
 
   // Fetch movies whenever searchQuery changes
   useEffect(() => {
     if (searchQuery.trim()) {
       handleSearchComponent(searchQuery); // Fetch movies based on search query
     }
-  }, [searchQuery,handleSearchComponent]); // Dependency on searchQuery to re-fetch when it changes
+  }, [searchQuery, handleSearchComponent]); // Dependency on searchQuery to re-fetch when it changes
 
   return (
     <div>
