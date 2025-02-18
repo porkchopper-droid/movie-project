@@ -6,7 +6,7 @@ import GenreMovies from "./components/GenreMovies";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 
 import TopRated from "./components/TopRated";
-import SearchPage from "./components/SearchPage";
+import SearchPage from "./components/SearchPage/SearchPage";
 import "./App.scss";
 import { useContext } from "react";
 import { SearchContext } from "./contexts/SearchContext";

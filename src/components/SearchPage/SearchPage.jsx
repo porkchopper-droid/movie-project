@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
-import { SearchContext } from "../contexts/SearchContext";
+import { SearchContext } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom"; // to link to movie details
+import "../SearchPage/search.scss";
 
 export default function SearchPage() {
   // Extracting values and functions from SearchContext
@@ -43,7 +44,7 @@ export default function SearchPage() {
           <p>Year: {movie.Year}</p>
           <p>Genre: {movie.Genre || "N/A"}</p>
           <p>Rating: {movie.imdbRating || "N/A"}</p>
-          <button onClick={() => addingToFavorite(movie)}>
+          <button className="favorites-button" onClick={() => addingToFavorite(movie)}>
             Add to favorite
           </button>
         </div>
