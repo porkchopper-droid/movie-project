@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
