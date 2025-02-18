@@ -88,16 +88,17 @@ export default function SearchContextProvider(props) {
         .catch((error) => console.error("Error fetching movies:", error));
     }
 
-    //Adding Favorite movies To the favorite Component
+   // Adding movies  to favorite  component
     const addingToFavorite = (movie) => {
-      if (!favoritesMovies.includes(movie)) {
-        setFavoritesMovies((prev) => [...prev, movie]);
-        console.log(favoritesMovies);
-      } else {
-        console.log("movie already exist");
-      }
+      setFavoritesMovies((prev) => {
+        if (!prev.some((fav) => fav.imdbID === movie.imdbID)) {
+          return [...prev, movie];
+        } else {
+          console.log("Movie already exists in favorites");
+          return prev;
+        }
+      });
     };
-
     return (
       <SearchContext.Provider
         value={{
@@ -114,8 +115,7 @@ export default function SearchContextProvider(props) {
           addingToFavorite,
           genres,
           randomMovies,
-          setMovies,
-          addingToFavorite,
+         
           searchComponentData,
           handleSearchComponent,
         }}
