@@ -5,10 +5,11 @@ import "./Genres.scss"
 
 export default function Genres() {
   const { randomMovies } = useContext(SearchContext);
+  console.log(randomMovies)
   const navigate = useNavigate();
 
-  function handleMovieClick(genreName) {
-    navigate(`/genres/${genreName}`); // Navigate to GenreMovies.js
+  function handleMovieClick(genre) {
+    navigate(`/genres/${genre}`); // Navigate to GenreMovies.js
   }
 
   return (

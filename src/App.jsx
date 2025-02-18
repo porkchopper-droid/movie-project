@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./components/HomePage/HomePage";
+import TopRated from "./components/TopRated";
 import Favorites from "./components/Favorites";
 import Genres from "./components/Genres/Genres";
-import GenreMovies from "./components/GenreMovies";
+import GenreMovies from "./GenreMovies/GenreMovies";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 
 import TopRated from "./components/TopRated";
@@ -11,12 +13,13 @@ import "./App.scss";
 import { useContext } from "react";
 import { SearchContext } from "./contexts/SearchContext";
 import LoginSignup from "./components/LoginSignup/LoginSignup";
+import { SearchContext } from "./contexts/SearchContext";
+import "./App.scss";
 
 function App() {
-  const { setSearchQuery,favoritesMovies} = useContext(SearchContext);
+  const { setSearchQuery, favoritesMovies } = useContext(SearchContext);
 
   return (
-
     <BrowserRouter basename="/movie-project">
       <nav>
         <Link to="/" className="home-link">Home</Link>
