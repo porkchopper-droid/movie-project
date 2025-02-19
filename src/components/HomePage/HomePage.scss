@@ -6,7 +6,11 @@
 #3A5A40
 #344E41 
 */
-
+.movies-container_div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .movieContainer p {
   padding: 0.1rem;
 }

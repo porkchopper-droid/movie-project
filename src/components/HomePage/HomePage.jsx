@@ -55,7 +55,7 @@ export default function HomePage() {
 
 
   return (
-    <div>
+    <div className="movies-container_div">
       <ul className="moviesContainer">
         {movies.map((movie) => (
           <div className="movieContainer" key={movie.imdbID}>

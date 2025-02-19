@@ -45,8 +45,10 @@ export default function GenreMovies() {
   }, [genre]);
 
   return (
-    <div>
-      <h2>Movies in {genre.toUpperCase()}</h2>
+    <> 
+     <h2>Movies in {genre.toUpperCase()}</h2>
+    <div className="movies-container_div">
+     
       <div className="moviesContainer">
         {movies.map((movie) => (
           <div
@@ -72,5 +74,6 @@ export default function GenreMovies() {
         ))}
       </div>
     </div>
+    </>
   );
 }

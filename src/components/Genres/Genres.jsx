@@ -13,8 +13,10 @@ export default function Genres() {
   }
 
   return (
-    <div>
+    <>
       <h2 className="genres-title">Explore Movies by Genre</h2>
+    <div className="movies-container_div" >
+      
       <div className="moviesContainer">
         {randomMovies.map(({ genre, movie }) => (
           <div
@@ -38,5 +40,6 @@ export default function Genres() {
         ))}
       </div>
     </div>
+    </>
   );
 }
