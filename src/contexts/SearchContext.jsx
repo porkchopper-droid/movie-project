@@ -10,6 +10,10 @@ export default function SearchContextProvider(props) {
   const [genres, setGenres] = useState([]);
   const [randomMovies, setRandomMovies] = useState([]);
   const [searchComponentData, SetSearchComponentData] = useState([]); //for Search Component
+  const [page, setPage] = useState(2); // Tracks current page
+  const [pagesMovies, setPagesMovies] = useState([]);// Rendering different movies  based on the page number in moviesPage Component 
+ 
+  
 
   const OMDB_APIkey = "4a822498";
   const TMDB_APIkey = "1142406a61399eb425ef4054c048517b";
@@ -18,21 +22,54 @@ export default function SearchContextProvider(props) {
     fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}`) // for 10 per query
       .then((response) => response.json())
       .then((data) => {
+        
         setMovies(data.Search || []); // Set the movies after fetching
       })
       .catch((error) => console.error("Error fetching movies:", error));
+  } 
+  function handlePagination(page) {
+
+    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=movie&page=${page}`)
+
+    
+      .then((response) => response.json())
+      .then((data) => {
+ 
+      setPagesMovies(data.Search || [])
+      
+      })
+      .catch((error) => console.error("Error fetching movies: ", error));
   }
 
-  function handleSingleSearch(id) {
-    // for 1 movie per query
+  function handleSingleSearch(id) { // for 1 movie per query
     fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&i=${id}`)
       .then((result) => result.json())
       .then((data) => setMovie(data))
-      .catch((error) => console.error("Error fetching movie: ", error));
+      .catch((error) => console.error("Error fetching movie: ", error))
+  }
+// a place for orcs and their TMDB
+  function handleSingleSearchTMDB(id) {
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_APIkey}&language=en-US`)
+    .then((result) => result.json())
+    .then((data) => {setMovie(data), console.log(data)})
+    .catch((error) => console.error("Error fetching movie: ", error))
   }
 
-  function fetchGenres() {
-    // for genres page
+  function fetchFullMovieDetails(moviesArray) { // fetch full movies' details from an array!
+    if (!moviesArray.length) return;
+  
+    return Promise.all(
+      moviesArray.map((movie) =>
+        fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&i=${movie.imdbID}`)
+          .then((response) => response.json())
+          .catch((error) => console.error("Error fetching details:", error))
+      )
+    ).then((fullMovies) => {
+      setMovies(fullMovies); // updating movies state with full details
+    });
+  }  
+
+  function fetchGenres() { // for genres page
     fetch(
       `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_APIkey}&language=en-US`
     )
@@ -41,7 +78,7 @@ export default function SearchContextProvider(props) {
       .catch((error) => console.error("Error fetching genres:", error));
   }
 
-  function fetchMoviesForGenres() {
+  function fetchMoviesForGenres() { // fetch movies for genres
     if (genres.length === 0) return;
 
     const moviePromises = genres.map((genre) =>
@@ -76,51 +113,58 @@ export default function SearchContextProvider(props) {
     fetchMoviesForGenres();
   }, [genres]);
 
-    // adding to favorites
 
-    //Fetching Data For Search Component
-    function handleSearchComponent(query) {
-      fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}`)
-        .then((response) => response.json())
-        .then((data) => {
-          SetSearchComponentData(data.Search || []); // Set the movies after fetching
-        })
-        .catch((error) => console.error("Error fetching movies:", error));
-    }
+  //Fetching Data For Search Component
+  function handleSearchComponent(query) {
+    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
 
-   // Adding movies  to favorite  component
-    const addingToFavorite = (movie) => {
-      setFavoritesMovies((prev) => {
-        if (!prev.some((fav) => fav.imdbID === movie.imdbID)) {
-          return [...prev, movie];
-        } else {
-          console.log("Movie already exists in favorites");
-          return prev;
-        }
-      });
-    };
-    return (
-      <SearchContext.Provider
-        value={{
-          favoritesMovies,
-          setFavoritesMovies,
-          searchQuery,
-          setSearchQuery,
-          movies,
-          handleSearch,
-          movie,
-          setMovie,
-          handleSingleSearch,
-          setMovies,
-          addingToFavorite,
-          genres,
-          randomMovies,
-         
-          searchComponentData,
-          handleSearchComponent,
-        }}
-      >
-        {props.children}
-      </SearchContext.Provider>
-    );
+        SetSearchComponentData(data.Search || []); // Set the movies after fetching
+      })
+      .catch((error) => console.error("Error fetching movies:", error));
+  }
+
+  // Adding movies  to favorite  component
+  const addingToFavorite = (movie) => {
+    setFavoritesMovies((prev) => {
+      if (!prev.some((fav) => fav.imdbID === movie.imdbID)) {
+        return [...prev, movie];
+      } else {
+        console.log("Movie already exists in favorites");
+        return prev;
+      }
+    });
   };
+  return (
+    <SearchContext.Provider
+      value={{
+        favoritesMovies,
+        setFavoritesMovies,
+        searchQuery,
+        setSearchQuery,
+        movies,
+        handleSearch,
+        movie,
+        setMovie,
+        handleSingleSearch,
+        setMovies,
+        addingToFavorite,
+        genres,
+        randomMovies,
+        TMDB_APIkey,
+          handleSingleSearchTMDB,
+        fetchFullMovieDetails,
+        searchComponentData,
+        handleSearchComponent,
+        handlePagination,
+
+        page,
+        setPage,
+        pagesMovies,
+      }}
+    >
+      {props.children}
+    </SearchContext.Provider>
+  );
+}

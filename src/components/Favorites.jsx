@@ -13,8 +13,8 @@ export default function Favorites() {
   };
 
   return (
-    <div className="favorites-container">
-      <h1>{favoritesMovies.length === 0 && " No Favorite movies available"}</h1>
+    <div className="movies-container_div">
+      <h2>{favoritesMovies.length === 0 && " No Favorite movies available"}</h2>
       <ul className="moviesContainer">
         {favoritesMovies.map((movie) => (
           <div className="movieContainer" key={movie.imdbID}>
@@ -27,7 +27,7 @@ export default function Favorites() {
             <p>Year: {movie.Year}</p>
             <p>Genre: {movie.Genre || "N/A"}</p>
             <p>Rating: {movie.imdbRating || "N/A"}</p>
-            <button onClick={() => removeFromFavorite(movie)}>
+            <button className="remove-favs" onClick={() => removeFromFavorite(movie)}>
               Remove from favorite
             </button>
           </div>

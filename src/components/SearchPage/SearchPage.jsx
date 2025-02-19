@@ -1,25 +1,32 @@
 import { useContext, useEffect } from "react";
-import { SearchContext } from "../contexts/SearchContext";
+import { SearchContext } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom"; // to link to movie details
+import "../SearchPage/search.scss";
 
 export default function SearchPage() {
+  
   // Extracting values and functions from SearchContext
-
   const navigate = useNavigate();
 
-  const { searchQuery,searchComponentData,handleSearchComponent,addingToFavorite} =
-    useContext(SearchContext);
+  const {
+    searchQuery,
+    searchComponentData,
+    handleSearchComponent,
+    addingToFavorite,
+  } = useContext(SearchContext);
 
   // Fetch movies whenever searchQuery changes
   useEffect(() => {
     if (searchQuery.trim()) {
       handleSearchComponent(searchQuery); // Fetch movies based on search query
     }
-  }, [searchQuery,handleSearchComponent]); // Dependency on searchQuery to re-fetch when it changes
+  }, [searchQuery, handleSearchComponent]); // Dependency on searchQuery to re-fetch when it changes
 
   return (
-    <div>
-      <h2>Search Results for {searchQuery}</h2>
+    <>
+    <h2>Search Results for {searchQuery}</h2>
+    <div className="movies-container_div" >
+      
 
       {/* Render movies if any are found */}
       {searchComponentData.length > 0 ? (
@@ -43,7 +50,7 @@ export default function SearchPage() {
           <p>Year: {movie.Year}</p>
           <p>Genre: {movie.Genre || "N/A"}</p>
           <p>Rating: {movie.imdbRating || "N/A"}</p>
-          <button onClick={() => addingToFavorite(movie)}>
+          <button className="favorites-button" onClick={() => addingToFavorite(movie)}>
             Add to favorite
           </button>
         </div>
@@ -53,5 +60,6 @@ export default function SearchPage() {
         <p>No movies found.</p> // Show message if no movies found
       )}
     </div>
+    </>
   );
 }
