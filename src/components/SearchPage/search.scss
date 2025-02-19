@@ -6,22 +6,23 @@
   padding: 20px;
   max-width: 70vw;
 
-  .movieContainer2 {
+  .movieContainer {
     width: 200px;
     height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     background: #a3b18a;
     border-radius: 0.3rem;
+    position: relative;
 
-    img {
+    .expand img {
       transition: 0.5s ease;
     }
 
-    &:hover img {
+    .expand img:hover {
       -webkit-transform: scale(1.1);
       -ms-transform: scale(1.1);
       transform: scale(1.1);
@@ -30,13 +31,15 @@
   }
 }
 
-.genres-title {
-  font-size: 2rem;
-  font-weight: 700;
-  padding: 2rem;
-  color: #588157;
-}
-
-.genres-name {
-  font-weight: 900;
+.favorites-button,
+.remove-favs {
+  background-color: #dad7cd;
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.3rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: #344e41;
+  position: absolute;
+  bottom: 1rem;
 }
