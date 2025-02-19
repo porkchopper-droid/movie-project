@@ -23,8 +23,10 @@ export default function SearchPage() {
   }, [searchQuery, handleSearchComponent]); // Dependency on searchQuery to re-fetch when it changes
 
   return (
-    <div>
-      <h2>Search Results for {searchQuery}</h2>
+    <>
+    <h2>Search Results for {searchQuery}</h2>
+    <div className="movies-container_div" >
+      
 
       {/* Render movies if any are found */}
       {searchComponentData.length > 0 ? (
@@ -58,5 +60,6 @@ export default function SearchPage() {
         <p>No movies found.</p> // Show message if no movies found
       )}
     </div>
+    </>
   );
 }

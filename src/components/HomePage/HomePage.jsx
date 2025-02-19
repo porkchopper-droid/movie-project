@@ -13,8 +13,17 @@ export default function HomePage() {
   } = useContext(SearchContext); // using context's constants...
   
   const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+    //handlePageChangeValue 
+
+    // const handlePageChange = (event, value) => {
+      
+    //   setPage(value); // Update the page number in the state
+    //   navigate(`/movies/page/${value}`); // Optionally navigate to the page URL if you want
+    //   console.log(value)
+    // };
+ 
   function updateTime() {
     // used to update timeOfDay based on hours
     const now = new Date();
@@ -46,7 +55,7 @@ export default function HomePage() {
 
 
   return (
-    <div>
+    <div className="movies-container_div">
       <ul className="moviesContainer">
         {movies.map((movie) => (
           <div className="movieContainer" key={movie.imdbID}>
@@ -77,6 +86,7 @@ export default function HomePage() {
           </div>
         ))}
       </ul>
+
     </div>
   );
 }
