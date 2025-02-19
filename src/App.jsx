@@ -12,7 +12,7 @@ import "./App.scss";
 import { SearchContext } from "./contexts/SearchContext";
 import LoginSignup from "./components/LoginSignup/LoginSignup";
 import Pagination from "@mui/material/Pagination";
-
+import { useContext } from "react";
 function App() {
   const navigate = useNavigate();
 
@@ -36,18 +36,18 @@ function App() {
   return (
     <>
       <nav>
-        <Link onClick={() => setPage(1)} to="/">
+        <Link className="home-link" onClick={() => setPage(1)} to="/">
           Home
         </Link>
         <li className="favoriteElement">
-          <Link to="/favorites">Favorites</Link>
+          <Link className="fav-link" to="/favorites">Favorites</Link>
           {favoritesMovies.length > 0 && (
             <span className="favorite-span">{favoritesMovies.length}</span>
           )}
         </li>
 
-        <Link to="/top-rated">Top Rated</Link>
-        <Link to="/genres">Genres</Link>
+        <Link className="top-rated-link" to="/top-rated">Top Rated</Link>
+        <Link className="genres-link" to="/genres">Genres</Link>
         <input
           className="search-input"
           onChange={(e) => {
