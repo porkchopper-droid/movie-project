@@ -1,11 +1,74 @@
-# React + Vite
+# Movie Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
 
-Currently, two official plugins are available:
+A **React-based movie app** using OMDb & TMDB APIs to browse, search, and save favorite movies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Technologies Used
 
+- **React** ⚛️ (Component-based UI)
+- **React Router** 🚀 (Navigation)
+- **SCSS** 🎨 (Styling)
+- **Material UI** 🎭 (Pagination)
+- **Vite** ⚡ (Development server)
 
-# Trying to merge from branch "test"
+## ⚙️ Installation
+
+1. Clone the repo:
+   ```sh
+   git clone https://github.com/your-username/movie-project.git
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the dev server:
+   ```sh
+   npm run dev
+   ```
+   Access at: `http://localhost:5173/movie-project/`
+
+## 🔥 Features
+
+- **Movie browsing & search** 🎬
+- **Genre-based filtering** 🗂️
+- **Detailed movie info** 📝
+- **Favorites list** ❤️
+- **Pagination support** 📑
+
+## 🚀 Deployment
+
+Set `base` in `vite.config.js`:
+
+```js
+export default defineConfig({
+  base: "/movie-project/",
+  plugins: [react()],
+});
+```
+
+Deploy using:
+
+```sh
+npm run build
+npm run deploy
+```
+
+## 🛠️ API Usage
+
+Add API keys in `SearchContext.jsx`:
+
+```jsx
+const OMDB_APIkey = "your-omdb-api-key";
+const TMDB_APIkey = "your-tmdb-api-key";
+```
+
+## 👨‍💻 Author
+
+**Dmytro Kuzyk** – *Junior Web Developer*
+in collaboration with Ahmad Al Sayed and Avdyl Zekaj – *Junior Web Developer*
+
+- GitHub: [porkchopper-droid](https://github.com/porkchopper-droid)
+- LinkedIn: https\://www\.linkedin.com/in/dmytro-kuzyk/
+
+🚀 **Enjoy your movie browsing!** 🎬🍿

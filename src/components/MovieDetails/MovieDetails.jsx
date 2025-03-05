@@ -58,7 +58,7 @@ export default function MovieDetails() {
         </div>
         <div className="movieDescription">
           <h2>{normalizedMovie.Title}</h2>
-          <p>{normalizedMovie.Year}</p>
+
           <div className="movieDescriptionList">
             <p>
               <strong>PLOT: </strong>
@@ -75,6 +75,10 @@ export default function MovieDetails() {
             <p>
               <strong>COUNTRY: </strong>
               {normalizedMovie.Country}
+            </p>
+            <p>
+              <strong>YEAR: </strong>
+              {normalizedMovie.Year}
             </p>
             <p>
               <strong>DIRECTOR: </strong>

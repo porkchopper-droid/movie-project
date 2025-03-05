@@ -52,6 +52,30 @@ export default function SearchContextProvider(props) {
   }, [OMDB_APIkey]);
 
   /**
+   * Fetch detailed data for a single movie using its IMDb ID.
+   */
+  const handleSingleSearch = useCallback((id) => {
+    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&i=${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMovie(data);
+      })
+      .catch((error) => console.error("Error fetching single movie:", error));
+  }, [OMDB_APIkey]);
+
+  /**
+   * Fetch detailed movie data from TMDB for a given movie ID.
+   */
+  const handleSingleSearchTMDB = useCallback((id) => {
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_APIkey}&language=en-US`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMovie(data);
+      })
+      .catch((error) => console.error("Error fetching single movie TMDB:", error));
+  }, [TMDB_APIkey]);
+
+  /**
    * Fetch full movie details for an array of movies.
    * Updates the movies state with full details.
    * @param {Array} moviesArray - Array of movie objects with at least an imdbID.
@@ -87,14 +111,11 @@ export default function SearchContextProvider(props) {
   function fetchMoviesForGenres() {
     if (genres.length === 0) return;
     const moviePromises = genres.map((genre) =>
-      fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_APIkey}&with_genres=${genre.id}&language=en-US&sort_by=popularity.desc`
-      )
+      fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_APIkey}&with_genres=${genre.id}&language=en-US&sort_by=popularity.desc`)
         .then((response) => response.json())
         .then((data) => {
           const movies = data.results || [];
-          const randomMovie =
-            movies.length > 0 ? movies[Math.floor(Math.random() * movies.length)] : null;
+          const randomMovie = movies.length > 0 ? movies[Math.floor(Math.random() * movies.length)] : null;
           return { genre: genre.name, movie: randomMovie };
         })
         .catch((error) => {
@@ -142,13 +163,16 @@ export default function SearchContextProvider(props) {
         handleSearch,
         movie,
         setMovie,
-        handleSearchComponent, // Memoized function for search component
+        handleSearchComponent,
         addingToFavorite,
         genres,
         randomMovies,
         totalResults,
         pagesMovies,
-        fetchFullMovieDetails, // Now defined!
+        fetchFullMovieDetails,
+        handleSingleSearch,      
+        handleSingleSearchTMDB,
+        OMDB_APIkey,
         TMDB_APIkey 
       }}
     >

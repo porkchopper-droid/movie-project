@@ -1,19 +1,10 @@
 /* colors:  
-
 #DAD7CD
 #A3B18A
 #588157
 #3A5A40
 #344E41 
 */
-.movies-container_div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.movieContainer p {
-  padding: 0.1rem;
-}
 
 .moviesContainer {
   display: flex;
@@ -21,7 +12,6 @@
   justify-content: center;
   gap: 20px;
   padding: 20px;
-  max-width: 70vw;
 
   .movieContainer {
     width: 200px;
@@ -31,25 +21,31 @@
     align-items: center;
     padding: 10px;
     justify-content: flex-start;
-    background: #a3b18a;
+    background: #7891a6;
     border-radius: 0.3rem;
     position: relative;
 
-    .expand img {
-      transition: 0.5s ease;
+    &:hover {
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); // Adds a smooth shadow effect
+      transform: scale(1.02); // Slight scale effect for emphasis
     }
+    .expand {
+      img {
+        transition: 0.5s ease;
 
-    .expand img:hover {
-      -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-      transform: scale(1.1);
-      transition: 0.1s ease;
+        &:hover {
+          -webkit-transform: scale(1.1);
+          -ms-transform: scale(1.1);
+          transform: scale(1.1);
+          transition: 0.1s ease;
+        }
+      }
     }
   }
 }
 
 .favoriteNumber {
-  background-color: red;
+  background-color: rgb(205, 40, 40);
   height: 20px;
   width: 20px;
   border-radius: 50%;
@@ -70,23 +66,22 @@
   padding: 0.3rem;
   cursor: pointer;
   font-weight: bold;
-  color: #344e41;
+  color: #343d3f;
   position: absolute;
   bottom: 1rem;
-}
 
-.favorites-button:hover,
-.remove-favs:hover {
-  background-color: #344E41;
-  color: #DAD7CD;
-  transform: scale(1.05);
+  &:hover {
+    background-color: #fddc5c;
+    color: #383732;
+    transform: scale(1.05);
+  }
 }
 
 .search-input {
   border-radius: 0.5rem;
   padding: 0.2rem 0.3rem;
   border: none;
-  outline: none;  
+  outline: none;
   width: 9rem;
 }
 
@@ -99,20 +94,21 @@
   color: #707570;
 }
 
-.movieContainer p {
-  padding: 0.1rem;
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.movieContainer {
+  p {
+    padding: 0.1rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.movieContainer h4 {
-  width: 100%;
-  text-align: center;
-  font-size: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
+  h4 {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

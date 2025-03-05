@@ -5,7 +5,13 @@ import Pagination from "@mui/material/Pagination";
 import "./HomePage.scss";
 
 export default function HomePage() {
-  const { movies, handleSearch, addingToFavorite, fetchFullMovieDetails, totalResults } = useContext(SearchContext);
+  const {
+    movies,
+    handleSearch,
+    addingToFavorite,
+    fetchFullMovieDetails,
+    totalResults,
+  } = useContext(SearchContext);
   const [timeOfDay, setTimeOfDay] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // New state for pagination
   const totalPages = Math.ceil(totalResults / 10);
@@ -40,8 +46,8 @@ export default function HomePage() {
   }, [movies]);
 
   return (
-    <div className="movies-container_div">
-      <ul className="moviesContainer">
+    <>
+      <div className="moviesContainer">
         {movies.map((movie) => (
           <div className="movieContainer" key={movie.imdbID}>
             <h4>{movie.Title}</h4>
@@ -59,23 +65,26 @@ export default function HomePage() {
                 onClick={() => navigate(`/movie/${movie.imdbID}`)}
               />
             </div>
-            <p>Year: {movie.Year}</p>
-            <p>Genre: {movie.Genre || "N/A"}</p>
-            <p>Rating: {movie.imdbRating || "N/A"}</p>
-            <button className="favorites-button" onClick={() => addingToFavorite(movie)}>
+            <p>🎬 Year: {movie.Year}</p>
+            <p>🍿{movie.Genre || "N/A"}</p>
+            <p>⭐ Rating: {movie.imdbRating || "N/A"}</p>
+            <button
+              className="favorites-button"
+              onClick={() => addingToFavorite(movie)}
+            >
               Add to favorites
             </button>
           </div>
         ))}
-      </ul>
 
-      {/* Pagination component for HomePage */}
+        {/* Pagination component for HomePage */}
+      </div>
       <Pagination
         page={currentPage}
         onChange={(e, value) => setCurrentPage(value)}
         count={totalPages}
         shape="rounded"
       />
-    </div>
+    </>
   );
 }
