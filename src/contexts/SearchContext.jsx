@@ -13,11 +13,17 @@ export default function SearchContextProvider(props) {
   const [pagesMovies, setPagesMovies] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
 
+  const API_BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "/api" // Uses Vite proxy locally
+    : "https://movie-project-1q1x.onrender.com/api"; // Uses Render backend in production
+
+
   /**
    * Fetch movies from the backend (OMDB)
    */
   const handleSearch = useCallback((query, page = 1) => {
-    fetch(`/api/movies?query=${query}&page=${page}`)
+    fetch(`${API_BASE_URL}/movies?query=${query}&page=${page}`)
       .then((response) => response.json())
       .then((data) => {
         setMovies(data.Search || []);
@@ -30,7 +36,7 @@ export default function SearchContextProvider(props) {
    * Fetch search results for the search component (OMDB)
    */
   const handleSearchComponent = useCallback((query) => {
-    fetch(`/api/movies?query=${query}`)
+    fetch(`${API_BASE_URL}/movies?query=${query}`)
       .then((response) => response.json())
       .then((data) => {
         setSearchComponentData(data.Search || []);
@@ -42,7 +48,7 @@ export default function SearchContextProvider(props) {
    * Fetch detailed data for a single movie using its IMDb ID (OMDB)
    */
   const handleSingleSearch = useCallback((id) => {
-    fetch(`/api/movie?id=${id}`)
+    fetch(`${API_BASE_URL}/movie?id=${id}`)
       .then((response) => response.json())
       .then((data) => setMovie(data))
       .catch((error) => console.error("Error fetching single movie:", error));
@@ -52,7 +58,7 @@ export default function SearchContextProvider(props) {
    * Fetch detailed movie data from TMDB for a given movie ID
    */
   const handleSingleSearchTMDB = useCallback((id) => {
-    fetch(`/api/tmdb/movie?id=${id}`)
+    fetch(`${API_BASE_URL}/tmdb/movie?id=${id}`)
       .then((response) => response.json())
       .then((data) => setMovie(data))
       .catch((error) => console.error("Error fetching single movie TMDB:", error));
@@ -65,7 +71,7 @@ export default function SearchContextProvider(props) {
     if (!moviesArray.length) return;
     return Promise.all(
       moviesArray.map((movie) =>
-        fetch(`/api/movie?id=${movie.imdbID}`)
+        fetch(`${API_BASE_URL}/movie?id=${movie.imdbID}`)
           .then((response) => response.json())
           .catch((error) => console.error("Error fetching full movie details:", error))
       )
@@ -79,7 +85,7 @@ export default function SearchContextProvider(props) {
    */
   
   function fetchGenres() {
-    fetch("/api/tmdb/genres") // Ensure correct API URL
+    fetch(`${API_BASE_URL}/tmdb/genres`) // Ensure correct API URL
       .then((response) => response.json())
       .then((data) => {
         console.log("Genres received:", data);
@@ -94,7 +100,7 @@ export default function SearchContextProvider(props) {
   function fetchMoviesForGenres() {
     if (genres.length === 0) return;
     const moviePromises = genres.map((genre) =>
-      fetch(`/api/tmdb/discover?genre=${genre.id}`)
+      fetch(`${API_BASE_URL}/tmdb/discover?genre=${genre.id}`)
         .then((response) => response.json())
         .then((data) => {
           const movies = data.results || [];
@@ -156,6 +162,7 @@ export default function SearchContextProvider(props) {
         handleSingleSearch,
         handleSingleSearchTMDB,
         fetchMoviesForGenres,
+        API_BASE_URL
       }}
     >
       {props.children}

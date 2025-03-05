@@ -6,7 +6,7 @@ import "./GenreMovies.scss";
 
 export default function GenreMovies() {
   const { genre } = useParams(); // e.g., "Action"
-  const { genres, TMDB_APIkey } = useContext(SearchContext);
+  const { genres, API_BASE_URL } = useContext(SearchContext);
   const [genreMovies, setGenreMovies] = useState([]);
   const [genreTotalResults, setGenreTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +21,7 @@ export default function GenreMovies() {
     if (!currentGenre) return;
     // TMDB returns 20 results per page by default.
     fetch(
-      `/api/tmdb/discover?genre=${currentGenre.id}&page=${currentPage}`
+      `${API_BASE_URL}/tmdb/discover?genre=${currentGenre.id}&page=${currentPage}`
     )
       .then((response) => response.json())
       .then((data) => {
