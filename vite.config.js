@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/movie-project',
+  base: '/movie-project/',
   plugins: [react()],
   
 })

@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../contexts/SearchContext";
 import './HomePage/HomePage.scss'
+
 const MoviesPage = () => {
   const { addingToFavorite, pagesMovies, handlePagination, page } =
     useContext(SearchContext);

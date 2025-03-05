@@ -4,55 +4,42 @@ import { SearchContext } from "../../contexts/SearchContext";
 import "./HomePage.scss";
 
 export default function HomePage() {
-
-  const {
-    movies,
-    handleSearch,
-    addingToFavorite,
-    fetchFullMovieDetails
-  } = useContext(SearchContext); // using context's constants...
-  
-  const [timeOfDay, setTimeofDay] = useState(""); // based on the current hour
-
+  const { movies, handleSearch, addingToFavorite, fetchFullMovieDetails } =
+    useContext(SearchContext);
+  const [timeOfDay, setTimeOfDay] = useState("");
   const navigate = useNavigate();
-    //handlePageChangeValue 
 
-    // const handlePageChange = (event, value) => {
-      
-    //   setPage(value); // Update the page number in the state
-    //   navigate(`/movies/page/${value}`); // Optionally navigate to the page URL if you want
-    //   console.log(value)
-    // };
- 
+  // Update the time of day based on the current hour
   function updateTime() {
-    // used to update timeOfDay based on hours
     const now = new Date();
     const hour = now.getHours();
-
     let timeLabel = "";
     if (hour >= 5 && hour < 12) timeLabel = "morning";
     else if (hour >= 12 && hour < 14) timeLabel = "noon";
     else if (hour >= 14 && hour < 17) timeLabel = "afternoon";
     else if (hour >= 17 && hour < 21) timeLabel = "evening";
     else timeLabel = "night";
-
-    setTimeofDay(timeLabel);
+    setTimeOfDay(timeLabel);
   }
 
-  useEffect(() => { // updating the time of the day
+  // Run updateTime on mount
+  useEffect(() => {
     updateTime();
   }, []);
 
-  useEffect(() => { // getting the movies depending on the time of the day
+  // When timeOfDay is set, call handleSearch with it as the query
+  useEffect(() => {
     if (!timeOfDay) return;
     handleSearch(timeOfDay);
   }, [timeOfDay]);
 
-  useEffect(()=>{ // updating the info of each movie
-    if (!movies.length) return;
-    fetchFullMovieDetails(movies); 
-  }, [movies])
-
+  // Fetch full movie details if movies are available and don't already have full details
+  useEffect(() => {
+    if (!movies || movies.length === 0) return;
+    // Check if the movies already have full details (e.g., if Plot is present)
+    if (movies[0].Plot) return;
+    fetchFullMovieDetails(movies);
+  }, [movies]);
 
   return (
     <div className="movies-container_div">
@@ -86,7 +73,6 @@ export default function HomePage() {
           </div>
         ))}
       </ul>
-
     </div>
   );
 }

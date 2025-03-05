@@ -6,7 +6,7 @@ import SearchContextProvider from "./contexts/SearchContext";
 import { BrowserRouter } from 'react-router-dom';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+   <BrowserRouter basename="/movie-project">
     
   
     <SearchContextProvider>
