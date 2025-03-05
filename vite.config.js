@@ -1,14 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
+// Change this to your actual Render backend URL
+const BACKEND_URL = "https://movie-project-1q1x.onrender.com";
+
 export default defineConfig({
-  base: '/movie-project/',
+  base: "/movie-project/",
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://localhost:5000", // ✅ Proxy all "/api" calls to backend
+      "/api": {
+        target: BACKEND_URL,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
     },
   },
-  
-})
+});
