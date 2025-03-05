@@ -29,7 +29,7 @@ export default function GenreMovies() {
         setGenreTotalResults(data.total_results || 0);
       })
       .catch((error) => console.error("Error fetching genre movies:", error));
-  }, [currentGenre, currentPage, TMDB_APIkey]);
+  }, [currentGenre, currentPage]);
 
   const totalPages = Math.ceil(genreTotalResults / 20);
 
