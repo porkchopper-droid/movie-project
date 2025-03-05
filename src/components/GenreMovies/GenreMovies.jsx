@@ -21,7 +21,7 @@ export default function GenreMovies() {
     if (!currentGenre) return;
     // TMDB returns 20 results per page by default.
     fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_APIkey}&with_genres=${currentGenre.id}&language=en-US&page=${currentPage}`
+      `/api/tmdb/discover?genre=${currentGenre.id}&page=${currentPage}`
     )
       .then((response) => response.json())
       .then((data) => {
