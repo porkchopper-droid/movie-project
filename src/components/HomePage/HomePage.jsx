@@ -1,18 +1,18 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
+import Pagination from "@mui/material/Pagination";
 import "./HomePage.scss";
 
 export default function HomePage() {
-  const { movies, handleSearch, addingToFavorite, fetchFullMovieDetails } =
-    useContext(SearchContext);
+  const { movies, handleSearch, addingToFavorite, fetchFullMovieDetails, totalResults } = useContext(SearchContext);
   const [timeOfDay, setTimeOfDay] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // New state for pagination
+  const totalPages = Math.ceil(totalResults / 10);
   const navigate = useNavigate();
 
-  // Update the time of day based on the current hour
   function updateTime() {
-    const now = new Date();
-    const hour = now.getHours();
+    const hour = new Date().getHours();
     let timeLabel = "";
     if (hour >= 5 && hour < 12) timeLabel = "morning";
     else if (hour >= 12 && hour < 14) timeLabel = "noon";
@@ -22,21 +22,19 @@ export default function HomePage() {
     setTimeOfDay(timeLabel);
   }
 
-  // Run updateTime on mount
   useEffect(() => {
     updateTime();
   }, []);
 
-  // When timeOfDay is set, call handleSearch with it as the query
+  // Trigger search when timeOfDay or currentPage changes
   useEffect(() => {
     if (!timeOfDay) return;
-    handleSearch(timeOfDay);
-  }, [timeOfDay]);
+    handleSearch(timeOfDay, currentPage);
+  }, [timeOfDay, currentPage]);
 
-  // Fetch full movie details if movies are available and don't already have full details
+  // Fetch full movie details if necessary
   useEffect(() => {
     if (!movies || movies.length === 0) return;
-    // Check if the movies already have full details (e.g., if Plot is present)
     if (movies[0].Plot) return;
     fetchFullMovieDetails(movies);
   }, [movies]);
@@ -50,7 +48,7 @@ export default function HomePage() {
             <div className="expand">
               <img
                 src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
-                alt={movie.Title + " Poster"}
+                alt={`${movie.Title} Poster`}
                 style={{
                   width: "80%",
                   height: "230px",
@@ -64,15 +62,20 @@ export default function HomePage() {
             <p>Year: {movie.Year}</p>
             <p>Genre: {movie.Genre || "N/A"}</p>
             <p>Rating: {movie.imdbRating || "N/A"}</p>
-            <button
-              className="favorites-button"
-              onClick={() => addingToFavorite(movie)}
-            >
+            <button className="favorites-button" onClick={() => addingToFavorite(movie)}>
               Add to favorites
             </button>
           </div>
         ))}
       </ul>
+
+      {/* Pagination component for HomePage */}
+      <Pagination
+        page={currentPage}
+        onChange={(e, value) => setCurrentPage(value)}
+        count={totalPages}
+        shape="rounded"
+      />
     </div>
   );
 }

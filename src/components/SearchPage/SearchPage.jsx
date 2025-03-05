@@ -1,65 +1,69 @@
-import { useContext, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { SearchContext } from "../../contexts/SearchContext";
-import { useNavigate } from "react-router-dom"; // to link to movie details
-import "../SearchPage/search.scss";
+import Pagination from "@mui/material/Pagination";
+import { useNavigate } from "react-router-dom";
+import "./SearchPage.scss";
 
 export default function SearchPage() {
-  
-  // Extracting values and functions from SearchContext
+  const { movies, handleSearch, totalResults, addingToFavorite, searchQuery } = useContext(SearchContext);
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+  const totalPages = Math.ceil(totalResults / 10);
 
-  const {
-    searchQuery,
-    searchComponentData,
-    handleSearchComponent,
-    addingToFavorite,
-  } = useContext(SearchContext);
-
-  // Fetch movies whenever searchQuery changes
+  // Trigger search API call when searchQuery or currentPage changes
   useEffect(() => {
-    if (searchQuery.trim()) {
-      handleSearchComponent(searchQuery); // Fetch movies based on search query
+    if (searchQuery && searchQuery.trim() !== "") {
+      handleSearch(searchQuery, currentPage);
     }
-  }, [searchQuery, handleSearchComponent]); // Dependency on searchQuery to re-fetch when it changes
+  }, [searchQuery, currentPage, handleSearch]);
 
   return (
-    <>
-    <h2>Search Results for {searchQuery}</h2>
-    <div className="movies-container_div" >
-      
-
-      {/* Render movies if any are found */}
-      {searchComponentData.length > 0 ? (
+    <div className="movies-container_div">
+      <h2>Search Results for: {searchQuery}</h2>
       <ul className="moviesContainer">
-      {searchComponentData.map((movie) => (
-        <div className="movieContainer" key={movie.imdbID}>
-          <h4>{movie.Title}</h4>
-          <div className="expand">
-            <img
-              src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
-              alt={movie.Title + " Poster"}
-              style={{
-                width: "80%",
-                objectFit: "cover",
-                padding: "10px 0",
-                cursor: "pointer",
-              }}
-              onClick={() => navigate(`/movie/${movie.imdbID}`)}
-            />
-          </div>
-          <p>Year: {movie.Year}</p>
-          <p>Genre: {movie.Genre || "N/A"}</p>
-          <p>Rating: {movie.imdbRating || "N/A"}</p>
-          <button className="favorites-button" onClick={() => addingToFavorite(movie)}>
-            Add to favorite
-          </button>
-        </div>
-      ))}
-    </ul>
-      ) : (
-        <p>No movies found.</p> // Show message if no movies found
+        {movies && movies.length > 0 ? (
+          movies.map((movie) => (
+            <div className="movieContainer" key={movie.imdbID}>
+              <h4>{movie.Title}</h4>
+              <div className="expand">
+                <img
+                  src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
+                  alt={`${movie.Title} Poster`}
+                  style={{
+                    width: "80%",
+                    height: "230px",
+                    objectFit: "cover",
+                    padding: "10px 0",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => navigate(`/movie/${movie.imdbID}`)}
+                />
+              </div>
+              <p>Year: {movie.Year}</p>
+              <p>Genre: {movie.Genre || "N/A"}</p>
+              <p>Rating: {movie.imdbRating || "N/A"}</p>
+              <button
+                className="favorites-button"
+                onClick={() => addingToFavorite(movie)}
+              >
+                Add to favorites
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No results found.</p>
+        )}
+      </ul>
+
+      {/* Pagination for SearchPage */}
+      {totalPages > 1 && (
+        <Pagination
+          page={currentPage}
+          onChange={(e, value) => setCurrentPage(value)}
+          count={totalPages}
+          shape="rounded"
+        />
       )}
     </div>
-    </>
   );
 }

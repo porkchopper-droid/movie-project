@@ -1,88 +1,91 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 
 export const SearchContext = createContext();
 
 export default function SearchContextProvider(props) {
-  const [movies, setMovies] = useState([]); // for 10 movies
-  const [movie, setMovie] = useState(null); // for a single movie
-  const [searchQuery, setSearchQuery] = useState(""); // for search bar
-  const [favoritesMovies, setFavoritesMovies] = useState([]); // for favorite movies
+  // State for general search results (e.g., home page or paginated search)
+  const [movies, setMovies] = useState([]);
+  // State for detailed data of a single movie
+  const [movie, setMovie] = useState(null);
+  // State for the current search query from the search bar
+  const [searchQuery, setSearchQuery] = useState("");
+  // State for favorite movies list
+  const [favoritesMovies, setFavoritesMovies] = useState([]);
+  // State for genres (from TMDB)
   const [genres, setGenres] = useState([]);
+  // State for a random movie per genre (for display purposes)
   const [randomMovies, setRandomMovies] = useState([]);
-  const [searchComponentData, SetSearchComponentData] = useState([]); //for Search Component
-  const [page, setPage] = useState(2); // Tracks current page
-  const [pagesMovies, setPagesMovies] = useState([]); // Rendering different movies  based on the page number in moviesPage Component
+  // State for search results when using the search component
+  const [searchComponentData, setSearchComponentData] = useState([]);
+  // State for paginated movie results (for MoviesPage)
+  const [pagesMovies, setPagesMovies] = useState([]);
+  // State for the total number of results (used for pagination)
+  const [totalResults, setTotalResults] = useState(0);
 
   const OMDB_APIkey = "4a822498";
   const TMDB_APIkey = "1142406a61399eb425ef4054c048517b";
 
-  function handleSearch(query) {
-    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}`) // for 10 per query
+  /**
+   * Fetch movies based on a query and page number.
+   */
+  const handleSearch = useCallback((query, page = 1) => {
+    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}&page=${page}`)
       .then((response) => response.json())
       .then((data) => {
-        setMovies(data.Search || []); // Set the movies after fetching
+        setMovies(data.Search || []);
+        setTotalResults(parseInt(data.totalResults, 10) || 0);
       })
       .catch((error) => console.error("Error fetching movies:", error));
-  }
-  function handlePagination(page) {
-    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=movie&page=${page}`)
+  }, [OMDB_APIkey]);
+
+  /**
+   * Fetch search results for the search component.
+   * This function is memoized to prevent flooding.
+   */
+  const handleSearchComponent = useCallback((query) => {
+    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}`)
       .then((response) => response.json())
       .then((data) => {
-        setPagesMovies(data.Search || []);
+        setSearchComponentData(data.Search || []);
       })
-      .catch((error) => console.error("Error fetching movies: ", error));
-  }
+      .catch((error) => console.error("Error fetching movies:", error));
+  }, [OMDB_APIkey]);
 
-  function handleSingleSearch(id) {
-    // for 1 movie per query
-    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&i=${id}`)
-      .then((result) => result.json())
-      .then((data) => setMovie(data))
-      .catch((error) => console.error("Error fetching movie: ", error));
-  }
-  // a place for orcs and their TMDB
-  function handleSingleSearchTMDB(id) {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_APIkey}&language=en-US`
-    )
-      .then((result) => result.json())
-      .then((data) => {
-        setMovie(data), console.log(data);
-      })
-      .catch((error) => console.error("Error fetching movie: ", error));
-  }
-
+  /**
+   * Fetch full movie details for an array of movies.
+   * Updates the movies state with full details.
+   * @param {Array} moviesArray - Array of movie objects with at least an imdbID.
+   */
   function fetchFullMovieDetails(moviesArray) {
-    // fetch full movies' details from an array!
     if (!moviesArray.length) return;
-
     return Promise.all(
       moviesArray.map((movie) =>
-        fetch(
-          `https://www.omdbapi.com/?apikey=${OMDB_APIkey}&i=${movie.imdbID}`
-        )
+        fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&i=${movie.imdbID}`)
           .then((response) => response.json())
           .catch((error) => console.error("Error fetching details:", error))
       )
     ).then((fullMovies) => {
-      setMovies(fullMovies); // updating movies state with full details
+      setMovies(fullMovies);
     });
   }
 
+  /**
+   * Fetch genres from TMDB.
+   */
   function fetchGenres() {
-    // for genres page
-    fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_APIkey}&language=en-US`
-    )
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_APIkey}&language=en-US`)
       .then((response) => response.json())
-      .then((data) => setGenres(data.genres || []))
+      .then((data) => {
+        setGenres(data.genres || []);
+      })
       .catch((error) => console.error("Error fetching genres:", error));
   }
 
+  /**
+   * Fetch a random movie for each genre.
+   */
   function fetchMoviesForGenres() {
-    // fetch movies for genres
     if (genres.length === 0) return;
-
     const moviePromises = genres.map((genre) =>
       fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_APIkey}&with_genres=${genre.id}&language=en-US&sort_by=popularity.desc`
@@ -91,9 +94,7 @@ export default function SearchContextProvider(props) {
         .then((data) => {
           const movies = data.results || [];
           const randomMovie =
-            movies.length > 0
-              ? movies[Math.floor(Math.random() * movies.length)]
-              : null;
+            movies.length > 0 ? movies[Math.floor(Math.random() * movies.length)] : null;
           return { genre: genre.name, movie: randomMovie };
         })
         .catch((error) => {
@@ -101,31 +102,14 @@ export default function SearchContextProvider(props) {
           return null;
         })
     );
-
     Promise.all(moviePromises).then((resolvedMovies) => {
-      setRandomMovies(resolvedMovies.filter((item) => item.movie !== null));
+      setRandomMovies(resolvedMovies.filter((item) => item && item.movie !== null));
     });
   }
 
-  useEffect(() => {
-    fetchGenres();
-  }, []);
-
-  useEffect(() => {
-    fetchMoviesForGenres();
-  }, [genres]);
-
-  //Fetching Data For Search Component
-  function handleSearchComponent(query) {
-    fetch(`https://www.omdbapi.com/?apikey=${OMDB_APIkey}&s=${query}`)
-      .then((response) => response.json())
-      .then((data) => {
-        SetSearchComponentData(data.Search || []); // Set the movies after fetching
-      })
-      .catch((error) => console.error("Error fetching movies:", error));
-  }
-
-  // Adding movies  to favorite  component
+  /**
+   * Add a movie to the favorites list.
+   */
   const addingToFavorite = (movie) => {
     setFavoritesMovies((prev) => {
       if (!prev.some((fav) => fav.imdbID === movie.imdbID)) {
@@ -136,6 +120,17 @@ export default function SearchContextProvider(props) {
       }
     });
   };
+
+  // Fetch genres when the provider mounts.
+  useEffect(() => {
+    fetchGenres();
+  }, []);
+
+  // Once genres are fetched, fetch movies for each genre.
+  useEffect(() => {
+    fetchMoviesForGenres();
+  }, [genres]);
+
   return (
     <SearchContext.Provider
       value={{
@@ -147,20 +142,14 @@ export default function SearchContextProvider(props) {
         handleSearch,
         movie,
         setMovie,
-        handleSingleSearch,
-        setMovies,
+        handleSearchComponent, // Memoized function for search component
         addingToFavorite,
         genres,
         randomMovies,
-        TMDB_APIkey,
-        handleSingleSearchTMDB,
-        fetchFullMovieDetails,
-        searchComponentData,
-        handleSearchComponent,
-        handlePagination,
-        page,
-        setPage,
+        totalResults,
         pagesMovies,
+        fetchFullMovieDetails, // Now defined!
+        TMDB_APIkey 
       }}
     >
       {props.children}
