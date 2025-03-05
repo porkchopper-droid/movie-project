@@ -1,74 +1,36 @@
-# Movie Project
+# 🎬 Movie Project - Frontend  
+A sleek React-based movie app that fetches movie data from OMDB and TMDB APIs.  
 
-## 📌 Overview
+🔗 **Live Demo:** [porkchopper-droid.github.io/movie-project](https://porkchopper-droid.github.io/movie-project/)  
 
-A **React-based movie app** using OMDb & TMDB APIs to browse, search, and save favorite movies.
+## 🚀 Features  
+- 🔍 Search movies by title  
+- 🎞️ Browse movies by genre  
+- ⭐ Save favorite movies  
+- 📄 Paginated search results  
+- 🎥 Fetch detailed movie info  
 
-## 🛠️ Technologies Used
-
-- **React** ⚛️ (Component-based UI)
-- **React Router** 🚀 (Navigation)
-- **SCSS** 🎨 (Styling)
-- **Material UI** 🎭 (Pagination)
-- **Vite** ⚡ (Development server)
-
-## ⚙️ Installation
-
-1. Clone the repo:
+## 🛠️ Installation & Setup  
+1. Clone the repo:  
    ```sh
-   git clone https://github.com/your-username/movie-project.git
+   git clone https://github.com/porkchopper-droid/movie-project.git
+   cd movie-project
    ```
-2. Install dependencies:
+2. Install dependencies:  
    ```sh
    npm install
    ```
-3. Start the dev server:
+3. Run the app locally:  
    ```sh
    npm run dev
    ```
-   Access at: `http://localhost:5173/movie-project/`
+   - Runs on: `http://localhost:5173/`  
+   - **Ensure the backend is running on `http://localhost:5000/`**  
 
-## 🔥 Features
-
-- **Movie browsing & search** 🎬
-- **Genre-based filtering** 🗂️
-- **Detailed movie info** 📝
-- **Favorites list** ❤️
-- **Pagination support** 📑
-
-## 🚀 Deployment
-
-Set `base` in `vite.config.js`:
-
-```js
-export default defineConfig({
-  base: "/movie-project/",
-  plugins: [react()],
-});
-```
-
-Deploy using:
-
-```sh
-npm run build
-npm run deploy
-```
-
-## 🛠️ API Usage
-
-Add API keys in `SearchContext.jsx`:
-
-```jsx
-const OMDB_APIkey = "your-omdb-api-key";
-const TMDB_APIkey = "your-tmdb-api-key";
-```
-
-## 👨‍💻 Author
-
-**Dmytro Kuzyk** – *Junior Web Developer*
-in collaboration with Ahmad Al Sayed and Avdyl Zekaj – *Junior Web Developer*
-
-- GitHub: [porkchopper-droid](https://github.com/porkchopper-droid)
-- LinkedIn: https\://www\.linkedin.com/in/dmytro-kuzyk/
-
-🚀 **Enjoy your movie browsing!** 🎬🍿
+## 🌍 Deployment  
+- Hosted on **GitHub Pages**  
+- Deploy manually:  
+  ```sh
+  npm run build
+  npm run deploy
+  ```
