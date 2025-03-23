@@ -1,23 +1,12 @@
-/* colors:  
-
-#DAD7CD
-#A3B18A
-#588157
-#3A5A40
-#344E41 
-*/
-
 .container {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 10rem;
+    margin: 20px auto;
+    padding: 20px;
     background: #fff;
-    padding-bottom: 0.2rem;
     color: grey;
-    // width: 80vw;
     max-width: 80vw;
-    border-radius: 0.2rem;
+    border-radius: 0.3rem;
 }
 
 .header {
@@ -26,7 +15,6 @@
     align-items: center;
     gap: 2rem;
     width: 100%;
-    margin-top: 2rem;
 }
 
 .text {
@@ -36,8 +24,8 @@
 }
 
 .underline {
-    width: 5rem;
-    height: 0.5rem;
+    width: 20%;
+    height: 8px;
     background: #588157;
     border-radius: 0.5rem;
 }
@@ -90,7 +78,8 @@
 .submit-container {
     display: flex;
     gap: 2rem;
-    margin: 3.5rem auto;
+    margin: 20px auto;
+    margin-top: 40px;
 }
 
 .submit {

@@ -14,13 +14,13 @@ export default function Genres() {
 
   return (
     <>
-      <h2 className="genres-title">Explore Movies by Genre</h2>
+      <h2>Explore Movies by Genre</h2>
     <div className="movies-container_div" >
       
       <div className="moviesContainer">
         {randomMovies.map(({ genre, movie }) => (
           <div
-            className="movieContainer2 expand2"
+            className="movieContainerGenres"
             key={movie.id}
             onClick={() => handleMovieClick(genre)}
           >

@@ -1,11 +1,3 @@
-/* colors:  
-#DAD7CD
-#A3B18A
-#588157
-#3A5A40
-#344E41 
-*/
-
 .moviesContainer {
   display: flex;
   flex-wrap: wrap;
@@ -26,20 +18,7 @@
     position: relative;
 
     &:hover {
-      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); // Adds a smooth shadow effect
-      transform: scale(1.02); // Slight scale effect for emphasis
-    }
-    .expand {
-      img {
-        transition: 0.5s ease;
-
-        &:hover {
-          -webkit-transform: scale(1.1);
-          -ms-transform: scale(1.1);
-          transform: scale(1.1);
-          transition: 0.1s ease;
-        }
-      }
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); // Adds a smooth shadow effect
     }
   }
 }
@@ -73,7 +52,7 @@
   &:hover {
     background-color: #fddc5c;
     color: #383732;
-    transform: scale(1.05);
+   // transform: scale(1.05); << removed the button pop-up
   }
 }
 

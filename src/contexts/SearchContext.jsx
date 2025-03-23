@@ -15,9 +15,8 @@ export default function SearchContextProvider(props) {
 
   const API_BASE_URL =
   import.meta.env.MODE === "development"
-    ? "/api" // Uses Vite proxy locally
-    : "https://movie-project-1q1x.onrender.com/api"; // Uses Render backend in production
-
+    ? `${window.location.origin}/api` // Full proxy path for local dev
+    : "https://movie-project-1q1x.onrender.com/api"; // For GitHub Pages
 
   /**
    * Fetch movies from the backend (OMDB)

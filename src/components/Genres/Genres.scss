@@ -6,7 +6,7 @@
   padding: 20px;
   max-width: 70vw;
 
-  .movieContainer2 {
+  .movieContainerGenres {
     width: 200px;
     height: 400px;
     display: flex;
@@ -14,8 +14,12 @@
     align-items: center;
     padding: 10px;
     justify-content: space-evenly;
-    background: #a3b18a;
+    background: #7891a6;
     border-radius: 0.3rem;
+
+    &:hover {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); // Adds a smooth shadow effect
+    }
 
     img {
       transition: 0.5s ease;
@@ -34,7 +38,7 @@
   font-size: 2rem;
   font-weight: 700;
   padding: 2rem;
-  color: #588157;
+  color: #704b0bbf;
 }
 
 .genres-name {
