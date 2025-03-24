@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./SearchPage.scss";
 
 export default function SearchPage() {
-  const { movies, handleSearch, totalResults, addingToFavorite, searchQuery } = useContext(SearchContext);
+  const { movies, handleSearch, totalResults, addingToFavorite, searchQuery, fetchFullMovieDetails } = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const totalPages = Math.ceil(totalResults / 10);
@@ -16,6 +16,13 @@ export default function SearchPage() {
       handleSearch(searchQuery, currentPage);
     }
   }, [searchQuery, currentPage, handleSearch]);
+
+  useEffect(() => {
+    if (movies && movies.length > 0 && !movies[0].Genre) {
+      fetchFullMovieDetails(movies);
+    }
+  }, [movies]);
+  
 
   return (
     <div className="movies-container_div">

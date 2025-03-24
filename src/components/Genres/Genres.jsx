@@ -14,7 +14,6 @@ export default function Genres() {
 
   return (
     <>
-      <h2>Explore Movies by Genre</h2>
     <div className="movies-container_div" >
       
       <div className="moviesContainer">
@@ -34,7 +33,6 @@ export default function Genres() {
                 cursor: "pointer",
               }}
             />
-            {/* <h3>{movie.title}</h3> */}
             <p className="genres-name">{genre.toUpperCase()}</p>
           </div>
         ))}

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import HomePage from "./components/HomePage/HomePage";
-import TopRated from "./components/TopRated";
+import TopRated from "./components/TopRated/TopRated";
 import Favorites from "./components/Favorites";
 import Genres from "./components/Genres/Genres";
 import GenreMovies from "./components/GenreMovies/GenreMovies";

@@ -15,7 +15,9 @@ app.use(express.json()); // Middleware to parse JSON requests
 app.get("/api/movies", async (req, res) => {
   try {
     const { query, page } = req.query;
-    const response = await axios.get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&s=${query}&page=${page}`);
+    const response = await axios.get(
+      `http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&s=${query}&page=${page}`
+    );
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching OMDB movies:", error);
@@ -27,7 +29,9 @@ app.get("/api/movies", async (req, res) => {
 app.get("/api/movie", async (req, res) => {
   try {
     const { id } = req.query;
-    const response = await axios.get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${id}`);
+    const response = await axios.get(
+      `http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${id}`
+    );
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching OMDB movie:", error);
@@ -39,7 +43,9 @@ app.get("/api/movie", async (req, res) => {
 app.get("/api/tmdb/movie", async (req, res) => {
   try {
     const { id } = req.query;
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    );
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching TMDB movie:", error);
@@ -47,10 +53,26 @@ app.get("/api/tmdb/movie", async (req, res) => {
   }
 });
 
+// Proxy for top-rated movies
+app.get("/api/tmdb/top-rated", async (req, res) => {
+  try {
+    const page = req.query.page || 1;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&vote_count.gte=1000&page=${page}&api_key=${process.env.TMDB_API_KEY}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching TMDB top-rated:", error);
+    res.status(500).json({ error: "Error fetching TMDB top-rated" });
+  }
+});
+
 //  Proxy TMDB genres request
 app.get("/api/tmdb/genres", async (req, res) => {
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    );
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching TMDB genres:", error);

@@ -12,6 +12,7 @@ export default function SearchContextProvider(props) {
   const [searchComponentData, setSearchComponentData] = useState([]);
   const [pagesMovies, setPagesMovies] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
+  const [searchResults, setSearchResults] = useState([]);
 
   const API_BASE_URL =
   import.meta.env.MODE === "development"
@@ -79,6 +80,22 @@ export default function SearchContextProvider(props) {
     });
   }
 
+  /* --------------- Fetch Top-Rated movies --------------- */
+
+  function fetchTopRated(page = 1) {
+    fetch(`/api/tmdb/top-rated?page=${page}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Top-rated received:", data);
+        setSearchResults(data.results || []);
+        setTotalResults(data.total_results || 0); // for pagination
+      })
+      .catch((error) => {
+        console.error("Error fetching TMDB top-rated:", error);
+      });
+  }
+  
+
   /**
    * Fetch genres from TMDB
    */
@@ -120,8 +137,10 @@ export default function SearchContextProvider(props) {
    * Add a movie to the favorites list
    */
   const addingToFavorite = (movie) => {
+    const movieId = movie.imdbID || movie.id; // OMDB uses imdbID, TMDB uses id
+  
     setFavoritesMovies((prev) => {
-      if (!prev.some((fav) => fav.imdbID === movie.imdbID)) {
+      if (!prev.some((fav) => (fav.imdbID || fav.id) === movieId)) {
         return [...prev, movie];
       } else {
         console.log("Movie already exists in favorites");
@@ -161,7 +180,10 @@ export default function SearchContextProvider(props) {
         handleSingleSearch,
         handleSingleSearchTMDB,
         fetchMoviesForGenres,
-        API_BASE_URL
+        API_BASE_URL,
+        fetchTopRated,
+        searchResults,
+        setSearchResults
       }}
     >
       {props.children}
