@@ -16,12 +16,30 @@ function SearchBar() {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        style={{
+          border: "none",
+          borderRadius: "0.5rem",
+          padding: "0.2rem 0.3rem",
+          width: "9rem",
+        }}
         type="text"
         placeholder="Search for movies..."
         value={localQuery}
         onChange={(e) => setLocalQuery(e.target.value)}
       />
-      <button type="submit">Search</button>
+      <button
+        type="submit"
+        style={{
+          margin: "0 10px",
+          border: "none",
+          borderRadius: "0.5rem",
+          padding: "0.2rem 0.3rem",
+          color: "#707570",
+          fontWeight: "bold",
+        }}
+      >
+        Search
+      </button>
     </form>
   );
 }

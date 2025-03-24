@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchContext } from "../../contexts/SearchContext";
+import { SearchContext } from "../contexts/SearchContext";
 import Pagination from "@mui/material/Pagination";
-import "./HomePage.scss";
+
 
 export default function HomePage() {
   const {
@@ -55,13 +55,6 @@ export default function HomePage() {
               <img
                 src={movie.Poster !== "N/A" ? movie.Poster : "NO IMAGE"}
                 alt={`${movie.Title} Poster`}
-                style={{
-                  width: "80%",
-                  height: "230px",
-                  objectFit: "cover",
-                  padding: "10px 0",
-                  cursor: "pointer",
-                }}
                 onClick={() => navigate(`/movie/${movie.imdbID}`)}
               />
             </div>

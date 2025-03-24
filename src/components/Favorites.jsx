@@ -15,7 +15,7 @@ export default function Favorites() {
 
   return (
     <div className="movies-container_div">
-      <h2>{favoritesMovies.length === 0 && " No Favorite movies available"}</h2>
+      {/* <h2>{favoritesMovies.length === 0 && " No Favorite movies available"}</h2> */}
       <ul className="moviesContainer">
         {favoritesMovies.map((movie) => (
           <div className="movieContainer" key={movie.imdbID || movie.id}>

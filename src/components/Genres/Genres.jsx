@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../contexts/SearchContext";
-import "./Genres.scss"
+import "./Genres.scss";
 
 export default function Genres() {
   const { randomMovies } = useContext(SearchContext);
-  console.log(randomMovies)
+  console.log(randomMovies);
   const navigate = useNavigate();
 
   function handleMovieClick(genre) {
@@ -14,8 +14,6 @@ export default function Genres() {
 
   return (
     <>
-    <div className="movies-container_div" >
-      
       <div className="moviesContainer">
         {randomMovies.map(({ genre, movie }) => (
           <div
@@ -26,18 +24,11 @@ export default function Genres() {
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
-              style={{
-                width: "80%",
-                objectFit: "cover",
-                padding: "10px 0",
-                cursor: "pointer",
-              }}
             />
             <p className="genres-name">{genre.toUpperCase()}</p>
           </div>
         ))}
       </div>
-    </div>
     </>
   );
 }

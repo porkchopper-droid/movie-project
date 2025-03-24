@@ -10,7 +10,7 @@
     justify-content: center; // Centers horizontally
     align-items: center; // Centers vertically if parent has a height
     width: 100%; // Ensures it takes full width
-    margin: 20px auto; // Adds spacing around
+    margin: auto; // Adds spacing around
   
     img {
       width: 300px;
@@ -43,7 +43,7 @@
     button {
       padding: 10px 15px;
       border: none;
-      background-color: #ff9800;
+      background-color: hsl(36, 83%, 58%);
       color: white;
       cursor: pointer;
       border-radius: 5px;

@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { SearchContext } from "../../contexts/SearchContext";
+import { SearchContext } from "../contexts/SearchContext";
 import Pagination from "@mui/material/Pagination";
 import { useNavigate } from "react-router-dom";
-import "./SearchPage.scss";
 
 export default function SearchPage() {
   const { movies, handleSearch, totalResults, addingToFavorite, searchQuery, fetchFullMovieDetails } = useContext(SearchContext);
@@ -25,7 +24,7 @@ export default function SearchPage() {
   
 
   return (
-    <div className="movies-container_div">
+    <>
       <h2>Search Results for: {searchQuery}</h2>
       <ul className="moviesContainer">
         {movies && movies.length > 0 ? (
@@ -71,6 +70,6 @@ export default function SearchPage() {
           shape="rounded"
         />
       )}
-    </div>
+    </>
   );
 }

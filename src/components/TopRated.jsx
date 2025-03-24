@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchContext } from "../../contexts/SearchContext.jsx";
+import { SearchContext } from "../contexts/SearchContext.jsx";
 import Pagination from "@mui/material/Pagination";
 
 export default function TopRated() {
