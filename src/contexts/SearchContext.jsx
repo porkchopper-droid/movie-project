@@ -83,7 +83,7 @@ export default function SearchContextProvider(props) {
   /* --------------- Fetch Top-Rated movies --------------- */
 
   function fetchTopRated(page = 1) {
-    fetch(`/api/tmdb/top-rated?page=${page}`)
+    fetch(`${API_BASE_URL}/tmdb/top-rated?page=${page}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("Top-rated received:", data);
