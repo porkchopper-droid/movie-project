@@ -1,14 +1,27 @@
 :root {
+  /* Font */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #DAD7CD;
+
+  /* Base colors */
+  --color-bg: #DAD7CD;
+  --color-text: #ffffff;
+
+  /* Accent colors */
+  --color-primary: #7891a6;
+  --color-accent: #fddc5c;
+  --color-danger: #cd2828;
+  --color-link: #707570;
+  --color-fav-button: #dad7cd;
+  --color-fav-button-text: #343d3f;
+  --color-fav-button-hover: #fddc5c;
+  --color-fav-button-hover-text: #383732;
+
+  /* Optional grays */
+  --gray-100: #f5f5f5;
+  --gray-150: #ebebeb;
+  --gray-200: #e0e0e0;
+  --gray-300: #c4c4c4;
+  --gray-900: #1a1a1a;
+
+  
 }
-
-/* colors:  
-
-#DAD7CD
-#A3B18A
-#588157
-#3A5A40
-#344E41 
-*/

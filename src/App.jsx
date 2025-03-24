@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import HomePage from "./components/HomePage/HomePage";
-import TopRated from "./components/TopRated/TopRated";
+import { Routes, Route, NavLink } from "react-router-dom";
+import HomePage from "./components/HomePage";
+import TopRated from "./components/TopRated";
 import Favorites from "./components/Favorites";
 import Genres from "./components/Genres/Genres";
-import GenreMovies from "./components/GenreMovies/GenreMovies";
+import GenreMovies from "./components/GenreMovies";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
-import SearchPage from "./components/SearchPage/SearchPage";
+import SearchPage from "./components/SearchPage";
 import LoginSignup from "./components/LoginSignup/LoginSignup";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/SearchBar/SearchBar";
 import { SearchContext } from "./contexts/SearchContext";
 import "./App.scss";
 
@@ -18,27 +18,27 @@ function App() {
   return (
     <>
       <nav>
-        <Link className="home-link" onClick={() => setPage(1)} to="/">
+        <NavLink className="home-link" onClick={() => setPage(1)} to="/">
           Home
-        </Link>
+        </NavLink>
         <li className="favoriteElement">
-          <Link className="fav-link" to="/favorites">
+          <NavLink className="fav-link" to="/favorites">
             Favorites
-          </Link>
+          </NavLink>
           {favoritesMovies.length > 0 && (
             <span className="favorite-span">{favoritesMovies.length}</span>
           )}
         </li>
-        <Link className="top-rated-link" to="/top-rated">
+        <NavLink className="top-rated-link" to="/top-rated">
           Top Rated
-        </Link>
-        <Link className="genres-link" to="/genres">
+        </NavLink>
+        <NavLink className="genres-link" to="/genres">
           Genres
-        </Link>
+        </NavLink>
         <SearchBar />
-        <Link to="/sign-in" className="sign-in-link">
+        <NavLink to="/sign-in" className="sign-in-link">
           Sign in
-        </Link>
+        </NavLink>
       </nav>
 
       <Routes>

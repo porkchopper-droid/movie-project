@@ -83,11 +83,11 @@ app.get("/api/tmdb/genres", async (req, res) => {
 //  Proxy TMDB discover movies by genre (random movies per genre)
 app.get("/api/tmdb/discover", async (req, res) => {
   try {
-    const { genre } = req.query;
+    const { genre, page =1 } = req.query;
     if (!genre) return res.status(400).json({ error: "Genre ID is required" });
     console.log("TMDB API Key:", process.env.TMDB_API_KEY);
     const response = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&with_genres=${genre}&language=en-US&sort_by=popularity.desc`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&with_genres=${genre}&language=en-US&sort_by=popularity.desc&page=${page}`
     );
     res.json(response.data);
   } catch (error) {

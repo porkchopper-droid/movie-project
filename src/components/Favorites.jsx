@@ -5,16 +5,19 @@ export default function Favorites() {
   const { favoritesMovies, setFavoritesMovies, genres } =
     useContext(SearchContext);
 
-  //Filtirig movies and remove  it from favorite by clicking on the button
+  //Filtering movies and removing one from favorite by clicking the button
   const removeFromFavorite = (movie) => {
-    const filtringMovies = favoritesMovies.filter(
-      (m) => m.imdbID !== movie.imdbID
+    const movieId = movie.imdbID || movie.id;
+
+    const filtered = favoritesMovies.filter(
+      (m) => (m.imdbID || m.id) !== movieId
     );
-    setFavoritesMovies(filtringMovies);
+
+    setFavoritesMovies(filtered);
   };
 
   return (
-    <div className="movies-container_div">
+    <>
       {/* <h2>{favoritesMovies.length === 0 && " No Favorite movies available"}</h2> */}
       <ul className="moviesContainer">
         {favoritesMovies.map((movie) => (
@@ -30,7 +33,7 @@ export default function Favorites() {
               alt={`${movie.Title || movie.title} Poster`}
               style={{ width: "80%", objectFit: "cover", padding: "10px 0" }}
             />
-            <p>Year: {movie.Year || movie.release_date.slice(0,4)}</p>
+            <p>Year: {movie.Year || movie.release_date.slice(0, 4)}</p>
             <p>
               Genre:{" "}
               {movie.Genre ||
@@ -40,7 +43,10 @@ export default function Favorites() {
                   .join(", ") ||
                 "N/A"}
             </p>
-            <p>Rating: {movie.imdbRating || movie.vote_average.toFixed(1) || "N/A"}</p>
+            <p>
+              Rating:{" "}
+              {movie.imdbRating || movie.vote_average.toFixed(1) || "N/A"}
+            </p>
             <button
               className="remove-favs"
               onClick={() => removeFromFavorite(movie)}
@@ -50,6 +56,6 @@ export default function Favorites() {
           </div>
         ))}
       </ul>
-    </div>
+    </>
   );
 }

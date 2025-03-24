@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import { SearchContext } from "../contexts/SearchContext";
+import { SearchContext } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
+import "./SearchBar.scss";
 
 function SearchBar() {
   const { setSearchQuery } = useContext(SearchContext);
@@ -16,28 +17,13 @@ function SearchBar() {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        style={{
-          border: "none",
-          borderRadius: "0.5rem",
-          padding: "0.2rem 0.3rem",
-          width: "9rem",
-        }}
+        className="input-style"
         type="text"
         placeholder="Search for movies..."
         value={localQuery}
         onChange={(e) => setLocalQuery(e.target.value)}
       />
-      <button
-        type="submit"
-        style={{
-          margin: "0 10px",
-          border: "none",
-          borderRadius: "0.5rem",
-          padding: "0.2rem 0.3rem",
-          color: "#707570",
-          fontWeight: "bold",
-        }}
-      >
+      <button type="submit" className="search-button-style">
         Search
       </button>
     </form>

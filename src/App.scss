@@ -1,3 +1,5 @@
+@import "./shared.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +14,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
 nav {
@@ -23,13 +27,15 @@ nav {
 
   a {
     text-decoration: none;
-    color: white;
     font-weight: bold;
-
     transition: color 0.3s ease;
 
     &:hover {
       color: #ff6625;
+    }
+
+    &.active {
+      color: #ff6625; // stays red when on the page
     }
   }
 
@@ -58,13 +64,6 @@ nav {
     align-items: center;
     justify-content: center;
   }
-}
-
-.movies-container_div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 h2 {
